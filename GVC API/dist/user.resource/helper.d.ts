@@ -1,26 +1,17 @@
-import { User } from './user.model';
 import { Message } from 'src/chat.resource/chat.interface';
+import { User } from './model/account.model';
 export declare class Helper {
     private static systemMessage;
+    static validBody(body: any): void;
     static describeClass(typeOfClass: any): Array<any>;
     static describeClassUser(): Array<any>;
     static generateUID(): string;
     static removeItemOnce(arr: Array<any>, value: any): Array<any>;
     static populate(): any;
-    static validBody(body: any): void;
     static validBodyPut(body: any): {
         success: boolean;
         data: string;
     };
-}
-export declare class Verification {
-    private static systemMessage;
-    static verifyCredentials(newUser: any, option: string): void;
-    static verifyEmail(newUser: any, id?: string): Promise<void>;
-    static verifyName(newUser: any): void;
-    static verifyPassword(user: any): void;
-    static verifyAge(newUser: any): void;
-    static verifyID(id: string): Promise<void>;
 }
 export declare class Process {
     private static systemMessage;

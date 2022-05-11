@@ -1,13 +1,16 @@
 import 'firebase/auth';
 import 'firebase/firestore';
 import { CRUDReturn } from './crud_return.interface';
-import { SystemMessage, User } from './user.model';
+import { SystemMessage, User } from './model/account.model';
+// import { SystemMessage, User } from './user.model';
 
 const admin = require('firebase-admin');
 const systemMessage = new SystemMessage();
 const users = 'users';
 
 export class DatabaseQuery {
+  // for reference
+  // ---------------------------------------------------------------------------------
   static async commit(user: User): Promise<CRUDReturn> {
     try {
       var db = admin.firestore();

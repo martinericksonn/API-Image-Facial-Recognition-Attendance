@@ -1,18 +1,40 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Process = exports.Verification = exports.Helper = void 0;
-const user_model_1 = require("./user.model");
+exports.Process = exports.Helper = void 0;
 const uuid_1 = require("uuid");
 const firebase_database_1 = require("./firebase.database");
 const chat_interface_1 = require("../chat.resource/chat.interface");
+const account_model_1 = require("./model/account.model");
 class Helper {
+    static validBody(body) {
+        var systemMessage = new account_model_1.SystemMessage();
+        var keys = Helper.describeClassUser();
+        var types = new Map();
+        types.set('name', typeof '');
+        types.set('employeeID', typeof 0);
+        types.set('Department', typeof '');
+        types.set('CollegeName', typeof '');
+        types.set('onLeave', typeof Boolean);
+        types.set('Resigned', typeof Boolean);
+        for (const key of Object.keys(body)) {
+            if (!keys.includes(`${key}`) && typeof body[key] != types.get(key)) {
+                throw systemMessage.error(502);
+            }
+            if (typeof body[key] != types.get(key)) {
+                throw this.systemMessage.custom({
+                    success: false,
+                    data: `${key} is not a valid attribute`,
+                });
+            }
+        }
+    }
     static describeClass(typeOfClass) {
         let a = new typeOfClass();
         let array = Object.getOwnPropertyNames(a);
         return array;
     }
     static describeClassUser() {
-        let a = new user_model_1.User('', 0, '', '');
+        let a = new account_model_1.User('', 0, '', '');
         let array = Object.getOwnPropertyNames(a);
         return array;
     }
@@ -30,14 +52,13 @@ class Helper {
         var result = new Map();
         try {
             var users = [
-                new user_model_1.User('Leanne Graham', 18, 'sincere@april.biz', 'LG_123456'),
-                new user_model_1.User('Ervin Howell', 21, 'shanna@melissa.tv', 'EH_123123'),
-                new user_model_1.User('Nathan Plains', 25, 'nathan@yesenia.net', 'NP_812415'),
-                new user_model_1.User('Patricia Lebsack', 18, 'patty@kory.org', 'PL_12345'),
+                new account_model_1.User('Leanne Graham', 18, 'sincere@april.biz', 'LG_123456'),
+                new account_model_1.User('Ervin Howell', 21, 'shanna@melissa.tv', 'EH_123123'),
+                new account_model_1.User('Nathan Plains', 25, 'nathan@yesenia.net', 'NP_812415'),
+                new account_model_1.User('Patricia Lebsack', 18, 'patty@kory.org', 'PL_12345'),
             ];
             users.forEach(async (user) => {
                 try {
-                    await Verification.verifyEmail(user);
                     await firebase_database_1.DatabaseQuery.commit(user);
                 }
                 catch (error) { }
@@ -46,26 +67,6 @@ class Helper {
         }
         catch (error) {
             return null;
-        }
-    }
-    static validBody(body) {
-        var systemMessage = new user_model_1.SystemMessage();
-        var keys = Helper.describeClassUser();
-        var types = new Map();
-        types.set('name', typeof '');
-        types.set('age', typeof 0);
-        types.set('email', typeof '');
-        types.set('password', typeof '');
-        for (const key of Object.keys(body)) {
-            if (!keys.includes(`${key}`) && typeof body[key] != types.get(key)) {
-                throw systemMessage.error(502);
-            }
-            if (typeof body[key] != types.get(key)) {
-                throw this.systemMessage.custom({
-                    success: false,
-                    data: `${key} is not a valid attribute`,
-                });
-            }
         }
     }
     static validBodyPut(body) {
@@ -86,54 +87,7 @@ class Helper {
     }
 }
 exports.Helper = Helper;
-Helper.systemMessage = new user_model_1.SystemMessage();
-class Verification {
-    static verifyCredentials(newUser, option) {
-        switch (option.toUpperCase()) {
-            case 'LOGIN':
-                if (!(newUser.email && newUser.password))
-                    throw this.systemMessage.error(502);
-                break;
-            case 'REGISTER':
-                Helper.validBody(newUser);
-                Helper.validBodyPut(newUser);
-                break;
-            case 'PATCH':
-                Helper.validBody(newUser);
-                break;
-        }
-    }
-    static async verifyEmail(newUser, id) {
-        const emailRegexp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
-        if (!newUser.email)
-            return;
-        if (!(newUser.email.trim() && emailRegexp.test(newUser.email)))
-            throw this.systemMessage.error(508);
-        if (await firebase_database_1.DatabaseQuery.alreadyExistEmail(newUser.email, id))
-            throw this.systemMessage.error(503);
-    }
-    static verifyName(newUser) {
-    }
-    static verifyPassword(user) {
-        if (!user.password)
-            return;
-        if (user.password.length < 6)
-            throw this.systemMessage.error(511);
-    }
-    static verifyAge(newUser) {
-        if (!newUser.age)
-            return;
-        if (!(newUser.age > 0 && newUser.age < 100))
-            throw this.systemMessage.error(509);
-    }
-    static async verifyID(id) {
-        if (await firebase_database_1.DatabaseQuery.hasID(id)) {
-            throw this.systemMessage.error(506);
-        }
-    }
-}
-exports.Verification = Verification;
-Verification.systemMessage = new user_model_1.SystemMessage();
+Helper.systemMessage = new account_model_1.SystemMessage();
 class Process {
     static getMsgUid(user1, user2) {
         var user = [];
@@ -150,7 +104,7 @@ class Process {
         return await firebase_database_1.DatabaseQuery.updateValues(id, user);
     }
     static registerUser(newUser) {
-        var user = new user_model_1.User(newUser);
+        var user = new account_model_1.User(newUser);
         return firebase_database_1.DatabaseQuery.commit(user);
     }
     static async getUser(id) {
@@ -162,7 +116,7 @@ class Process {
         return this.systemMessage.success(populatedData);
     }
     static async overwriteUser(id, newUser) {
-        var user = new user_model_1.User(newUser);
+        var user = new account_model_1.User(newUser);
         user.id = id;
         return await firebase_database_1.DatabaseQuery.replaceValues(id, user);
     }
@@ -186,5 +140,5 @@ class Process {
     }
 }
 exports.Process = Process;
-Process.systemMessage = new user_model_1.SystemMessage();
+Process.systemMessage = new account_model_1.SystemMessage();
 //# sourceMappingURL=helper.js.map

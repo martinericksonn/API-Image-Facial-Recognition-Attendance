@@ -8,13 +8,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ChatService = void 0;
 const common_1 = require("@nestjs/common");
-const helper_1 = require("../user.resource/helper");
 const chat_databaseQuery_1 = require("../chat.resource/chat.databaseQuery");
 let ChatService = class ChatService {
     async sendMessageIndiv(user1, user2, message) {
         try {
-            await helper_1.Verification.verifyID(user1);
-            await helper_1.Verification.verifyID(user2);
             await chat_databaseQuery_1.DatabaseQuery.addMessage(user1, user2, message);
         }
         catch (error) {
@@ -23,7 +20,6 @@ let ChatService = class ChatService {
     }
     async sendMessageGroup(message) {
         try {
-            await helper_1.Verification.verifyID(message['uid']);
             await chat_databaseQuery_1.DatabaseQuery.addMessageGroup(message);
         }
         catch (error) {

@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DatabaseQuery = void 0;
-const user_model_1 = require("../user.resource/user.model");
 require("firebase/auth");
 require("firebase/firestore");
 const helper_1 = require("../user.resource/helper");

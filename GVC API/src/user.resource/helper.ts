@@ -1,11 +1,40 @@
-import { User, SystemMessage } from './user.model';
+// import { User, SystemMessage } from './user.model';
 import { v4 as uid } from 'uuid';
 import { DatabaseQuery } from './firebase.database';
 import { Message } from 'src/chat.resource/chat.interface';
+import { SystemMessage, User } from './model/account.model';
 
 export class Helper {
   private static systemMessage = new SystemMessage();
 
+  static validBody(body: any) {
+    var systemMessage = new SystemMessage();
+
+    var keys: Array<string> = Helper.describeClassUser();
+    var types: Map<string, string> = new Map<string, string>();
+
+    types.set('name', typeof '');
+    types.set('employeeID', typeof 0);
+    types.set('Department', typeof '');
+    types.set('CollegeName', typeof '');
+    types.set('onLeave', typeof Boolean);
+    types.set('Resigned', typeof Boolean);
+
+    for (const key of Object.keys(body)) {
+      if (!keys.includes(`${key}`) && typeof body[key] != types.get(key)) {
+        throw systemMessage.error(502);
+      }
+      if (typeof body[key] != types.get(key)) {
+        throw this.systemMessage.custom({
+          success: false,
+          data: `${key} is not a valid attribute`,
+        });
+      }
+    }
+  }
+
+  //for reference
+  //------------------------------------------------------------------------------------------
   //returns an array of attributes as defined in the class
   static describeClass(typeOfClass: any): Array<any> {
     let a = new typeOfClass();
@@ -46,7 +75,7 @@ export class Helper {
 
       users.forEach(async (user) => {
         try {
-          await Verification.verifyEmail(user);
+          // await Verification.verifyEmail(user);
 
           await DatabaseQuery.commit(user);
         } catch (error) {}
@@ -58,28 +87,28 @@ export class Helper {
     }
   }
 
-  static validBody(body: any) {
-    var systemMessage = new SystemMessage();
+  // static validBody(body: any) {
+  //   var systemMessage = new SystemMessage();
 
-    var keys: Array<string> = Helper.describeClassUser();
-    var types: Map<string, string> = new Map<string, string>();
+  //   var keys: Array<string> = Helper.describeClassUser();
+  //   var types: Map<string, string> = new Map<string, string>();
 
-    types.set('name', typeof '');
-    types.set('age', typeof 0);
-    types.set('email', typeof '');
-    types.set('password', typeof '');
-    for (const key of Object.keys(body)) {
-      if (!keys.includes(`${key}`) && typeof body[key] != types.get(key)) {
-        throw systemMessage.error(502);
-      }
-      if (typeof body[key] != types.get(key)) {
-        throw this.systemMessage.custom({
-          success: false,
-          data: `${key} is not a valid attribute`,
-        });
-      }
-    }
-  }
+  //   types.set('name', typeof '');
+  //   types.set('age', typeof 0);
+  //   types.set('email', typeof '');
+  //   types.set('password', typeof '');
+  //   for (const key of Object.keys(body)) {
+  //     if (!keys.includes(`${key}`) && typeof body[key] != types.get(key)) {
+  //       throw systemMessage.error(502);
+  //     }
+  //     if (typeof body[key] != types.get(key)) {
+  //       throw this.systemMessage.custom({
+  //         success: false,
+  //         data: `${key} is not a valid attribute`,
+  //       });
+  //     }
+  //   }
+  // }
 
   static validBodyPut(body: any): { success: boolean; data: string } {
     var keys: Array<string> = Helper.describeClassUser();
@@ -100,63 +129,7 @@ export class Helper {
   }
 }
 
-export class Verification {
-  private static systemMessage = new SystemMessage();
-
-  static verifyCredentials(newUser: any, option: string) {
-    switch (option.toUpperCase()) {
-      case 'LOGIN':
-        if (!(newUser.email && newUser.password))
-          throw this.systemMessage.error(502);
-        break;
-
-      case 'REGISTER':
-        Helper.validBody(newUser);
-        Helper.validBodyPut(newUser);
-        break;
-
-      case 'PATCH':
-        Helper.validBody(newUser);
-        break;
-    }
-  }
-
-  static async verifyEmail(newUser: any, id?: string) {
-    const emailRegexp =
-      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
-    if (!newUser.email) return;
-
-    if (!(newUser.email.trim() && emailRegexp.test(newUser.email)))
-      throw this.systemMessage.error(508);
-
-    if (await DatabaseQuery.alreadyExistEmail(newUser.email, id))
-      throw this.systemMessage.error(503);
-  }
-
-  static verifyName(newUser: any) {
-    // const nameRegexp =
-    //   /^[a-z\u00C0-\u02AB'´`]+\.?\s([a-z\u00C0-\u02AB'´`]+\.?\s?)+$/;
-    // if (!nameRegexp.test(newUser.name)) throw this.systemMessage.error(510);
-  }
-
-  static verifyPassword(user: any) {
-    if (!user.password) return;
-    if (user.password.length < 6) throw this.systemMessage.error(511);
-  }
-
-  static verifyAge(newUser: any) {
-    if (!newUser.age) return;
-    if (!(newUser.age > 0 && newUser.age < 100))
-      throw this.systemMessage.error(509);
-  }
-
-  static async verifyID(id: string) {
-    if (await DatabaseQuery.hasID(id)) {
-      throw this.systemMessage.error(506);
-    }
-  }
-}
-
+//For processing data to database
 export class Process {
   private static systemMessage = new SystemMessage();
 

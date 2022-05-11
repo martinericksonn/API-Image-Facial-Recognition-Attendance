@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import * as admin from 'firebase-admin';
-import { Verification } from 'src/user.resource/helper';
+// import { Verification } from 'src/user.resource/helper';
 import { DatabaseQuery } from '../chat.resource/chat.databaseQuery';
 import { Message } from '../chat.resource/chat.interface';
 
@@ -8,8 +8,8 @@ import { Message } from '../chat.resource/chat.interface';
 export class ChatService {
   async sendMessageIndiv(user1: string, user2: string, message: any) {
     try {
-      await Verification.verifyID(user1);
-      await Verification.verifyID(user2);
+      // await Verification.verifyID(user1);
+      // await Verification.verifyID(user2);
 
       await DatabaseQuery.addMessage(user1, user2, message);
     } catch (error) {
@@ -19,7 +19,7 @@ export class ChatService {
 
   async sendMessageGroup(message: Message) {
     try {
-      await Verification.verifyID(message['uid']);
+      // await Verification.verifyID(message['uid']);
 
       await DatabaseQuery.addMessageGroup(message);
     } catch (error) {

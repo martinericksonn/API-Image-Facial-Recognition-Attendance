@@ -3,9 +3,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.DatabaseQuery = void 0;
 require("firebase/auth");
 require("firebase/firestore");
-const user_model_1 = require("./user.model");
+const account_model_1 = require("./model/account.model");
 const admin = require('firebase-admin');
-const systemMessage = new user_model_1.SystemMessage();
+const systemMessage = new account_model_1.SystemMessage();
 const users = 'users';
 class DatabaseQuery {
     static async commit(user) {
@@ -88,7 +88,7 @@ class DatabaseQuery {
             var userRef = await db.collection(users).get();
             var populatedData = [];
             userRef.forEach((doc) => {
-                var user = new user_model_1.User(doc.data());
+                var user = new account_model_1.User(doc.data());
                 populatedData.push(user.toJson());
             });
             return populatedData;
@@ -119,7 +119,7 @@ class DatabaseQuery {
                 .get();
             var user;
             userResult.forEach((doc) => {
-                user = new user_model_1.User(doc.data());
+                user = new account_model_1.User(doc.data());
             });
             return user;
         }
@@ -134,7 +134,7 @@ class DatabaseQuery {
             var userRef = await db.collection(users).get();
             var populatedData = [];
             userRef.forEach((doc) => {
-                var user = new user_model_1.User(doc.data());
+                var user = new account_model_1.User(doc.data());
                 for (var attributename in doc.data()) {
                     if (user['id'] == term) {
                         populatedData.push(user.toJson());
