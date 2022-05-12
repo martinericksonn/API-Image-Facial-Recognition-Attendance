@@ -6,8 +6,5 @@ export declare class UserController {
         success: string;
         data: string;
     }>;
-    addAccount(body: any): Promise<{
-        success: string;
-        data: string;
-    }>;
+    addAccount(body: any): Promise<any>;
 }

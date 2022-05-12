@@ -1,9 +1,10 @@
-import { Helper, Process } from '../user.resource/helper';
+// import { Helper, Process } from '../user.resource/helper';
 import { CRUDReturn } from '../user.resource/crud_return.interface';
 import { Injectable } from '@nestjs/common';
 import * as admin from 'firebase-admin';
 import { auth } from 'firebase-admin';
-// import { User } from 'src/user.resource/user.model';
+import { Helper } from 'src/user.resource/helper';
+import { Account } from 'src/model/account.model';
 
 @Injectable()
 export class UserService {
@@ -11,15 +12,25 @@ export class UserService {
   private AUTH: auth.Auth = admin.auth();
 
   constructor() {
-    Process.populateDatabase();
+    // Process.populateDatabase();
   }
 
   async addAccount(body: any) {
-    console.log(body);
-    return {
-      success: 'yes',
-      data: 'any',
-    };
+    try {
+      Helper.validAccountBody(body);
+      var newAccount: Account = new Account(
+        body.name,
+        body.id,
+        body.department,
+        body.collegeName,
+        body.onLeave,
+        body.resigned,
+      );
+
+      newAccount.log();
+    } catch (error) {
+      return error;
+    }
   }
 
   async getAccount(id: string) {

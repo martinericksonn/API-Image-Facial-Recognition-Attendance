@@ -1,26 +1,26 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Process = exports.Helper = void 0;
-const uuid_1 = require("uuid");
-const firebase_database_1 = require("./firebase.database");
-const chat_interface_1 = require("../chat.resource/chat.interface");
-const account_model_1 = require("./model/account.model");
+exports.Helper = void 0;
+const system_message_model_1 = require("../model/system_message.model");
+const account_model_1 = require("../model/account.model");
 class Helper {
-    static validBody(body) {
-        var systemMessage = new account_model_1.SystemMessage();
+    static validAccountBody(body) {
+        var systemMessage = new system_message_model_1.SystemMessage();
         var keys = Helper.describeClassUser();
         var types = new Map();
         types.set('name', typeof '');
-        types.set('employeeID', typeof 0);
-        types.set('Department', typeof '');
-        types.set('CollegeName', typeof '');
-        types.set('onLeave', typeof Boolean);
-        types.set('Resigned', typeof Boolean);
+        types.set('id', typeof 0);
+        types.set('department', typeof '');
+        types.set('collegeName', typeof '');
+        types.set('onLeave', typeof true);
+        types.set('resigned', typeof true);
         for (const key of Object.keys(body)) {
             if (!keys.includes(`${key}`) && typeof body[key] != types.get(key)) {
                 throw systemMessage.error(502);
             }
             if (typeof body[key] != types.get(key)) {
+                console.log(body[key]);
+                console.log(types.get(key));
                 throw this.systemMessage.custom({
                     success: false,
                     data: `${key} is not a valid attribute`,
@@ -28,117 +28,12 @@ class Helper {
             }
         }
     }
-    static describeClass(typeOfClass) {
-        let a = new typeOfClass();
-        let array = Object.getOwnPropertyNames(a);
-        return array;
-    }
     static describeClassUser() {
-        let a = new account_model_1.User('', 0, '', '');
+        let a = new account_model_1.Account('', 123, '', '', false, false);
         let array = Object.getOwnPropertyNames(a);
         return array;
-    }
-    static generateUID() {
-        return (0, uuid_1.v4)().toString().replace(/-/g, '').substring(0, 27);
-    }
-    static removeItemOnce(arr, value) {
-        var index = arr.indexOf(value);
-        if (index > -1) {
-            arr.splice(index, 1);
-        }
-        return arr;
-    }
-    static populate() {
-        var result = new Map();
-        try {
-            var users = [
-                new account_model_1.User('Leanne Graham', 18, 'sincere@april.biz', 'LG_123456'),
-                new account_model_1.User('Ervin Howell', 21, 'shanna@melissa.tv', 'EH_123123'),
-                new account_model_1.User('Nathan Plains', 25, 'nathan@yesenia.net', 'NP_812415'),
-                new account_model_1.User('Patricia Lebsack', 18, 'patty@kory.org', 'PL_12345'),
-            ];
-            users.forEach(async (user) => {
-                try {
-                    await firebase_database_1.DatabaseQuery.commit(user);
-                }
-                catch (error) { }
-                result.set(user.id, user);
-            });
-        }
-        catch (error) {
-            return null;
-        }
-    }
-    static validBodyPut(body) {
-        var keys = Helper.describeClassUser();
-        keys = Helper.removeItemOnce(keys, 'id');
-        for (const key of Object.keys(body)) {
-            if (keys.includes(`${key}`)) {
-                keys = Helper.removeItemOnce(keys, key);
-            }
-        }
-        if (keys.length > 0) {
-            throw this.systemMessage.custom({
-                success: false,
-                data: `Payload is missing ${keys}`,
-            });
-        }
-        return this.systemMessage.custom({ success: true, data: null });
     }
 }
 exports.Helper = Helper;
-Helper.systemMessage = new account_model_1.SystemMessage();
-class Process {
-    static getMsgUid(user1, user2) {
-        var user = [];
-        user.push(user1.slice(-(user1.length / 2)));
-        user.push(user2.slice(-(user1.length / 2)));
-        user.sort();
-        return user.join('');
-    }
-    static messageAddTime(message) {
-        message.date = new Date();
-        return message;
-    }
-    static async updateUser(user, id) {
-        return await firebase_database_1.DatabaseQuery.updateValues(id, user);
-    }
-    static registerUser(newUser) {
-        var user = new account_model_1.User(newUser);
-        return firebase_database_1.DatabaseQuery.commit(user);
-    }
-    static async getUser(id) {
-        var user = await firebase_database_1.DatabaseQuery.getUser(id);
-        return this.systemMessage.success(user);
-    }
-    static async getAllUsers() {
-        var populatedData = await firebase_database_1.DatabaseQuery.getAllUsers();
-        return this.systemMessage.success(populatedData);
-    }
-    static async overwriteUser(id, newUser) {
-        var user = new account_model_1.User(newUser);
-        user.id = id;
-        return await firebase_database_1.DatabaseQuery.replaceValues(id, user);
-    }
-    static async deleteUser(id) {
-        return firebase_database_1.DatabaseQuery.delete(id);
-    }
-    static async loginUser(newUser) {
-        var user;
-        if ((user = await firebase_database_1.DatabaseQuery.loginUser(newUser.email, newUser.password)))
-            return this.systemMessage.success(user.toJson());
-        throw this.systemMessage.error(505);
-    }
-    static async searchInUser(query) {
-        var result = await firebase_database_1.DatabaseQuery.searchInUser(query);
-        if (!result.length)
-            return this.systemMessage.error(512);
-        return this.systemMessage.success(result);
-    }
-    static populateDatabase() {
-        return Helper.populate();
-    }
-}
-exports.Process = Process;
-Process.systemMessage = new account_model_1.SystemMessage();
+Helper.systemMessage = new system_message_model_1.SystemMessage();
 //# sourceMappingURL=helper.js.map

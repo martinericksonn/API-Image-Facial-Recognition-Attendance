@@ -10,21 +10,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserService = void 0;
-const helper_1 = require("../user.resource/helper");
 const common_1 = require("@nestjs/common");
 const admin = require("firebase-admin");
+const helper_1 = require("../user.resource/helper");
+const account_model_1 = require("../model/account.model");
 let UserService = class UserService {
     constructor() {
         this.DB = admin.firestore();
         this.AUTH = admin.auth();
-        helper_1.Process.populateDatabase();
     }
     async addAccount(body) {
-        console.log(body);
-        return {
-            success: 'yes',
-            data: 'any',
-        };
+        try {
+            helper_1.Helper.validAccountBody(body);
+            var newAccount = new account_model_1.Account(body.name, body.id, body.department, body.collegeName, body.onLeave, body.resigned);
+            newAccount.log();
+        }
+        catch (error) {
+            return error;
+        }
     }
     async getAccount(id) {
         console.log(id);
