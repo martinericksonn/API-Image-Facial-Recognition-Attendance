@@ -6,8 +6,6 @@ import {
   Param,
   Patch,
   Post,
-  Put,
-  UseGuards,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 
@@ -23,21 +21,28 @@ export class UserController {
     return this.userService.getAccount(id);
   }
 
-  //@post2
+  @Get('/getAllAccounts')
+  getAllAccount() {
+    return this.userService.getAllAccounts();
+  }
+
+  //@post
   //add attendance
-  //add accounts
 
   @Post('/addAccount')
   addAccount(@Body() body: any) {
     return this.userService.addAccount(body);
   }
 
-  //@patch
-  //onLeave
-  //resigned
+  @Patch('/setOnLeave/:id')
+  setOnLeave(@Param('id') id: string, @Body() status: any) {
+    return this.userService.setOnLeave(id, status);
+  }
 
-  //@delete
-  //delete
+  @Patch('/setResigned/:id')
+  setResigned(@Param('id') id: string, @Body() status: any) {
+    return this.userService.setResigned(id, status);
+  }
 
   @Delete('/deleteAccount/:id')
   deleteAccount(@Param('id') id: string) {

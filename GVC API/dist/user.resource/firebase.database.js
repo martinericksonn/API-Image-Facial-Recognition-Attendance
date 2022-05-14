@@ -59,6 +59,53 @@ class DatabaseQuery {
             return systemMessage.error(error);
         }
     }
+    static async updateValues(id, account) {
+        try {
+            var db = admin.firestore();
+            await db.collection(accounts).doc(id).update(account);
+            var newUser = await db.collection(accounts).doc(id).get();
+            return systemMessage.success(newUser.data());
+        }
+        catch (error) {
+            console.log(error);
+            throw systemMessage.error(error);
+        }
+    }
+    static async setOnLeave(id, key, status) {
+        try {
+            var db = admin.firestore();
+            var flag;
+            if (status.toLowerCase() == 'true')
+                flag = true;
+            else if (status.toLowerCase() == 'false')
+                flag = false;
+            else
+                throw systemMessage.error('invalid Boolean');
+            await db.collection(accounts).doc(id).update({ key: flag });
+            return systemMessage.success(`${id} updated ${key} to ${flag}`);
+        }
+        catch (error) {
+            console.log(error);
+            return error;
+        }
+    }
+    static async getAllAccounts() {
+        try {
+            var db = admin.firestore();
+            var userRef = await db.collection(accounts).get();
+            var populatedData = [];
+            userRef.forEach((doc) => {
+                var data = doc.data();
+                var user = new account_model_1.Account(data.name, data.id, data.department, data.collegeName, data.onLeave, data.resigned);
+                populatedData.push(user.toJson());
+            });
+            return systemMessage.success(populatedData);
+        }
+        catch (error) {
+            console.log(error);
+            throw systemMessage.error(error);
+        }
+    }
 }
 exports.DatabaseQuery = DatabaseQuery;
 //# sourceMappingURL=firebase.database.js.map

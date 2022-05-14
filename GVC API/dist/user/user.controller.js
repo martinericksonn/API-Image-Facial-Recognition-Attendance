@@ -22,8 +22,17 @@ let UserController = class UserController {
     getAccount(id) {
         return this.userService.getAccount(id);
     }
+    getAllAccount() {
+        return this.userService.getAllAccounts();
+    }
     addAccount(body) {
         return this.userService.addAccount(body);
+    }
+    setOnLeave(id, status) {
+        return this.userService.setOnLeave(id, status);
+    }
+    setResigned(id, status) {
+        return this.userService.setResigned(id, status);
     }
     deleteAccount(id) {
         return this.userService.deleteAccount(id);
@@ -37,12 +46,34 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], UserController.prototype, "getAccount", null);
 __decorate([
+    (0, common_1.Get)('/getAllAccounts'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], UserController.prototype, "getAllAccount", null);
+__decorate([
     (0, common_1.Post)('/addAccount'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], UserController.prototype, "addAccount", null);
+__decorate([
+    (0, common_1.Patch)('/setOnLeave/:id'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", void 0)
+], UserController.prototype, "setOnLeave", null);
+__decorate([
+    (0, common_1.Patch)('/setResigned/:id'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", void 0)
+], UserController.prototype, "setResigned", null);
 __decorate([
     (0, common_1.Delete)('/deleteAccount/:id'),
     __param(0, (0, common_1.Param)('id')),

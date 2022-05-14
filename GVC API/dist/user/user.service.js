@@ -41,6 +41,32 @@ let UserService = class UserService {
             return error;
         }
     }
+    async setOnLeave(id, status) {
+        try {
+            await verification_1.Verification.verifyID(id);
+            return await firebase_database_1.DatabaseQuery.setOnLeave(id, 'onLeave', status);
+        }
+        catch (error) {
+            return error;
+        }
+    }
+    async setResigned(id, status) {
+        try {
+            await verification_1.Verification.verifyID(id);
+            return await firebase_database_1.DatabaseQuery.setOnLeave(id, 'resigned', status);
+        }
+        catch (error) {
+            return error;
+        }
+    }
+    async getAllAccounts() {
+        try {
+            return await firebase_database_1.DatabaseQuery.getAllAccounts();
+        }
+        catch (error) {
+            return error;
+        }
+    }
 };
 UserService = __decorate([
     (0, common_1.Injectable)()

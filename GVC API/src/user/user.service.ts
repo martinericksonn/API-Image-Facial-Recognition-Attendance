@@ -44,4 +44,28 @@ export class UserService {
       return error;
     }
   }
+
+  async setOnLeave(id: string, status: any) {
+    try {
+      await Verification.verifyID(id);
+      return await DatabaseQuery.setOnLeave(id, 'onLeave', status);
+    } catch (error) {
+      return error;
+    }
+  }
+  async setResigned(id: string, status: any) {
+    try {
+      await Verification.verifyID(id);
+      return await DatabaseQuery.setOnLeave(id, 'resigned', status);
+    } catch (error) {
+      return error;
+    }
+  }
+  async getAllAccounts() {
+    try {
+      return await DatabaseQuery.getAllAccounts();
+    } catch (error) {
+      return error;
+    }
+  }
 }

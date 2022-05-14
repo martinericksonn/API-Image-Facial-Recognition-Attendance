@@ -4,8 +4,6 @@ import 'firebase/firestore';
 import { Account } from 'src/model/account.model';
 import { SystemMessage } from 'src/model/system_message.model';
 import { CRUDReturn } from './crud_return.interface';
-// import { SystemMessage, User } from './model/account.model';
-// import { SystemMessage, User } from './user.model';
 
 const admin = require('firebase-admin');
 const systemMessage = new SystemMessage();
@@ -34,10 +32,9 @@ export class DatabaseQuery {
       if (!userRef.exists) {
         throw systemMessage.error(506);
       }
+
       return userRef.data();
     } catch (error) {
-      // console.log(error);
-
       return error;
     }
   }
@@ -63,6 +60,61 @@ export class DatabaseQuery {
     } catch (error) {
       console.log(error);
       return systemMessage.error(error);
+    }
+  }
+
+  static async updateValues(id: string, account: Account) {
+    try {
+      var db = admin.firestore();
+      await db.collection(accounts).doc(id).update(account);
+
+      var newUser = await db.collection(accounts).doc(id).get();
+      return systemMessage.success(newUser.data());
+    } catch (error) {
+      console.log(error);
+      throw systemMessage.error(error);
+    }
+  }
+  static async setOnLeave(id: string, key: String, status: String) {
+    try {
+      var db = admin.firestore();
+      var flag: Boolean;
+
+      if (status.toLowerCase() == 'true') flag = true;
+      else if (status.toLowerCase() == 'false') flag = false;
+      else throw systemMessage.error('invalid Boolean');
+
+      await db.collection(accounts).doc(id).update({ key: flag });
+      return systemMessage.success(`${id} updated ${key} to ${flag}`);
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  }
+
+  static async getAllAccounts() {
+    try {
+      var db = admin.firestore();
+      var userRef = await db.collection(accounts).get();
+
+      var populatedData = [];
+      userRef.forEach((doc) => {
+        var data = doc.data();
+
+        var user = new Account(
+          data.name,
+          data.id,
+          data.department,
+          data.collegeName,
+          data.onLeave,
+          data.resigned,
+        );
+        populatedData.push(user.toJson());
+      });
+      return systemMessage.success(populatedData);
+    } catch (error) {
+      console.log(error);
+      throw systemMessage.error(error);
     }
   }
 }
