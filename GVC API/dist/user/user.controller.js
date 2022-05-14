@@ -19,11 +19,14 @@ let UserController = class UserController {
     constructor(userService) {
         this.userService = userService;
     }
-    getAccount(term) {
-        return this.userService.getAccount(term);
+    getAccount(id) {
+        return this.userService.getAccount(id);
     }
     addAccount(body) {
         return this.userService.addAccount(body);
+    }
+    deleteAccount(id) {
+        return this.userService.deleteAccount(id);
     }
 };
 __decorate([
@@ -40,6 +43,13 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], UserController.prototype, "addAccount", null);
+__decorate([
+    (0, common_1.Delete)('/deleteAccount/:id'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], UserController.prototype, "deleteAccount", null);
 UserController = __decorate([
     (0, common_1.Controller)('user'),
     __metadata("design:paramtypes", [user_service_1.UserService])

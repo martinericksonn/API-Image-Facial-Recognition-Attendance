@@ -8,22 +8,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserService = void 0;
 const common_1 = require("@nestjs/common");
-const admin = require("firebase-admin");
 const helper_1 = require("../user.resource/helper");
 const account_model_1 = require("../model/account.model");
 const firebase_database_1 = require("../user.resource/firebase.database");
 const verification_1 = require("../user.resource/verification");
 let UserService = class UserService {
-    constructor() {
-        this.DB = admin.firestore();
-        this.AUTH = admin.auth();
-    }
     async addAccount(body) {
         try {
             body.id = helper_1.Helper.generateID();
             helper_1.Helper.validAccountBody(body);
             var newAccount = new account_model_1.Account(body.name, body.id, body.department, body.collegeName, body.onLeave, body.resigned);
-            return firebase_database_1.DatabaseQuery.commit(newAccount);
+            return await firebase_database_1.DatabaseQuery.commit(newAccount);
         }
         catch (error) {
             return error;
@@ -31,7 +26,16 @@ let UserService = class UserService {
     }
     async getAccount(id) {
         try {
-            return firebase_database_1.DatabaseQuery.getUser(id);
+            return await firebase_database_1.DatabaseQuery.getUser(id);
+        }
+        catch (error) {
+            return error;
+        }
+    }
+    async deleteAccount(id) {
+        try {
+            await verification_1.Verification.verifyID(id);
+            return await firebase_database_1.DatabaseQuery.deleteAccount(id);
         }
         catch (error) {
             return error;

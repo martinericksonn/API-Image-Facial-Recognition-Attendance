@@ -32,13 +32,13 @@ export class DatabaseQuery {
       var db = admin.firestore();
       var userRef = await db.collection(accounts).doc(id).get();
       if (!userRef.exists) {
-        return systemMessage.error(506);
+        throw systemMessage.error(506);
       }
       return userRef.data();
     } catch (error) {
-      console.log(error);
+      // console.log(error);
 
-      throw systemMessage.error(error);
+      return error;
     }
   }
 
@@ -51,6 +51,18 @@ export class DatabaseQuery {
       return !doc.exists;
     } catch (error) {
       throw systemMessage.error(error);
+    }
+  }
+
+  static async deleteAccount(id: string): Promise<CRUDReturn> {
+    try {
+      var db = admin.firestore();
+      await db.collection(accounts).doc(id).delete();
+
+      return systemMessage.success(103);
+    } catch (error) {
+      console.log(error);
+      return systemMessage.error(error);
     }
   }
 }

@@ -8,9 +8,6 @@ import { Verification } from 'src/user.resource/verification';
 
 @Injectable()
 export class UserService {
-  private DB = admin.firestore();
-  private AUTH: auth.Auth = admin.auth();
-
   async addAccount(body: any) {
     try {
       body.id = Helper.generateID();
@@ -25,7 +22,7 @@ export class UserService {
         body.resigned,
       );
 
-      return DatabaseQuery.commit(newAccount);
+      return await DatabaseQuery.commit(newAccount);
     } catch (error) {
       return error;
     }
@@ -33,7 +30,16 @@ export class UserService {
 
   async getAccount(id: string) {
     try {
-      return DatabaseQuery.getUser(id);
+      return await DatabaseQuery.getUser(id);
+    } catch (error) {
+      return error;
+    }
+  }
+
+  async deleteAccount(id: string) {
+    try {
+      await Verification.verifyID(id);
+      return await DatabaseQuery.deleteAccount(id);
     } catch (error) {
       return error;
     }

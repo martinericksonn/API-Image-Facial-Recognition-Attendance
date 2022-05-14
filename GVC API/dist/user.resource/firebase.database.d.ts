@@ -6,4 +6,5 @@ export declare class DatabaseQuery {
     static commit(account: Account): Promise<CRUDReturn>;
     static getUser(id: string): Promise<any>;
     static hasID(id: string): Promise<boolean | any>;
+    static deleteAccount(id: string): Promise<CRUDReturn>;
 }

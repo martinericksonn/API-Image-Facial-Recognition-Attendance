@@ -1,4 +1,4 @@
 export declare class Verification {
     private static systemMessage;
-    static verifyID(id: string): Promise<any>;
+    static verifyID(id: string): Promise<void>;
 }
