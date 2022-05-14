@@ -18,7 +18,7 @@ export class UserController {
   //attendance
   //accounts
 
-  @Get('/accountID/:id')
+  @Get('/getAccount/:id')
   getAccount(@Param('id') term: string) {
     return this.userService.getAccount(term);
   }

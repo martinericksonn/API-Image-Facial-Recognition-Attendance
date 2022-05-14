@@ -5,15 +5,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserService = void 0;
 const common_1 = require("@nestjs/common");
 const admin = require("firebase-admin");
 const helper_1 = require("../user.resource/helper");
 const account_model_1 = require("../model/account.model");
+const firebase_database_1 = require("../user.resource/firebase.database");
+const verification_1 = require("../user.resource/verification");
 let UserService = class UserService {
     constructor() {
         this.DB = admin.firestore();
@@ -21,25 +20,26 @@ let UserService = class UserService {
     }
     async addAccount(body) {
         try {
+            body.id = helper_1.Helper.generateID();
             helper_1.Helper.validAccountBody(body);
             var newAccount = new account_model_1.Account(body.name, body.id, body.department, body.collegeName, body.onLeave, body.resigned);
-            newAccount.log();
+            return firebase_database_1.DatabaseQuery.commit(newAccount);
         }
         catch (error) {
             return error;
         }
     }
     async getAccount(id) {
-        console.log(id);
-        return {
-            success: 'yes',
-            data: 'any',
-        };
+        try {
+            return firebase_database_1.DatabaseQuery.getUser(id);
+        }
+        catch (error) {
+            return error;
+        }
     }
 };
 UserService = __decorate([
-    (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [])
+    (0, common_1.Injectable)()
 ], UserService);
 exports.UserService = UserService;
 //# sourceMappingURL=user.service.js.map

@@ -9,6 +9,11 @@ import { Account } from 'src/model/account.model';
 export class Helper {
   private static systemMessage = new SystemMessage();
 
+  static generateID(): number {
+    var datum = Date.parse(new Date().toString());
+    return datum / 1000;
+  }
+
   static validAccountBody(body: any) {
     var systemMessage = new SystemMessage();
 

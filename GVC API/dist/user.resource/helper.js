@@ -4,6 +4,10 @@ exports.Helper = void 0;
 const system_message_model_1 = require("../model/system_message.model");
 const account_model_1 = require("../model/account.model");
 class Helper {
+    static generateID() {
+        var datum = Date.parse(new Date().toString());
+        return datum / 1000;
+    }
     static validAccountBody(body) {
         var systemMessage = new system_message_model_1.SystemMessage();
         var keys = Helper.describeClassUser();
