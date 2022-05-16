@@ -3,20 +3,18 @@ import 'firebase/firestore';
 export declare class Attendance {
     private name;
     id: number;
-    date: string;
+    private date;
     time: string;
     private classcode;
     private department;
-
     constructor(name: string, id: number, date: string, time: string, classcode: string, department: string);
-
     log(): void;
     toJson(): {
         name: string;
-        id: number;
+        employeeId: number;
         date: string;
         time: string;
-        classcode: string;
+        classCode: string;
         department: string;
     };
 }
