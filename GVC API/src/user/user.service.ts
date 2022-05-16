@@ -48,7 +48,7 @@ export class UserService {
   async setOnLeave(id: string, status: any) {
     try {
       await Verification.verifyID(id);
-      return await DatabaseQuery.setOnLeave(id, 'onLeave', status);
+      return await DatabaseQuery.setOnLeave(id, status);
     } catch (error) {
       return error;
     }
@@ -56,7 +56,7 @@ export class UserService {
   async setResigned(id: string, status: any) {
     try {
       await Verification.verifyID(id);
-      return await DatabaseQuery.setOnLeave(id, 'resigned', status);
+      return await DatabaseQuery.setOnResigned(id, status);
     } catch (error) {
       return error;
     }
