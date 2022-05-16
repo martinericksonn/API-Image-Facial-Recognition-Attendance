@@ -9,7 +9,8 @@ export declare class DatabaseQuery {
     static hasID(id: string): Promise<boolean | any>;
     static deleteAccount(id: string): Promise<CRUDReturn>;
     static updateValues(id: string, account: Account): Promise<any>;
-    static setOnLeave(id: string, key: String, status: String): Promise<any>;
+    static setOnLeave(id: string, status: String): Promise<any>;
+    static setOnResigned(id: string, status: String): Promise<any>;
     static getAllAccounts(): Promise<any>;
 
     //

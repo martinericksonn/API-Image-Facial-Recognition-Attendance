@@ -44,7 +44,7 @@ let UserService = class UserService {
     async setOnLeave(id, status) {
         try {
             await verification_1.Verification.verifyID(id);
-            return await firebase_database_1.DatabaseQuery.setOnLeave(id, 'onLeave', status);
+            return await firebase_database_1.DatabaseQuery.setOnLeave(id, status);
         }
         catch (error) {
             return error;
@@ -53,7 +53,7 @@ let UserService = class UserService {
     async setResigned(id, status) {
         try {
             await verification_1.Verification.verifyID(id);
-            return await firebase_database_1.DatabaseQuery.setOnLeave(id, 'resigned', status);
+            return await firebase_database_1.DatabaseQuery.setOnResigned(id, status);
         }
         catch (error) {
             return error;
