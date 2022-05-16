@@ -26,9 +26,6 @@ export class UserController {
     return this.userService.getAllAccounts();
   }
 
-  //@post
-  //add attendance
-
   @Post('/addAccount')
   addAccount(@Body() body: any) {
     return this.userService.addAccount(body);
@@ -48,4 +45,7 @@ export class UserController {
   deleteAccount(@Param('id') id: string) {
     return this.userService.deleteAccount(id);
   }
+
+  //@post
+  //add attendance
 }
