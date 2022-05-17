@@ -5,6 +5,7 @@ import { Helper } from 'src/user.resource/helper';
 import { Account } from 'src/model/account.model';
 import { DatabaseQuery } from 'src/user.resource/firebase.database';
 import { Verification } from 'src/user.resource/verification';
+import { Attendance } from 'src/model/attendance.model';
 
 @Injectable()
 export class UserService {
@@ -48,7 +49,7 @@ export class UserService {
   async setOnLeave(id: string, status: any) {
     try {
       await Verification.verifyID(id);
-      return await DatabaseQuery.setOnLeave(id, 'onLeave', status);
+      return await DatabaseQuery.setOnLeave(id, status);
     } catch (error) {
       return error;
     }
@@ -56,7 +57,7 @@ export class UserService {
   async setResigned(id: string, status: any) {
     try {
       await Verification.verifyID(id);
-      return await DatabaseQuery.setOnLeave(id, 'resigned', status);
+      return await DatabaseQuery.setOnResigned(id, status);
     } catch (error) {
       return error;
     }
@@ -64,6 +65,52 @@ export class UserService {
   async getAllAccounts() {
     try {
       return await DatabaseQuery.getAllAccounts();
+    } catch (error) {
+      return error;
+    }
+  }
+
+  //
+  async addAttendance(body: any) {
+    try {
+      body.id = Helper.generateID();
+      Helper.validAttendanceBody(body);
+
+      var newAccount: Attendance = new Attendance(
+        body.name,
+        body.id,
+        body.date,
+        body.time,
+        body.classcode,
+        body.department,
+      );
+
+      return await DatabaseQuery.commitAttendance(newAccount);
+    } catch (error) {
+      return error;
+    }
+  }
+
+  async getAttendance(id: string) {
+    try {
+      return await DatabaseQuery.getAttendance(id);
+    } catch (error) {
+      return error;
+    }
+  }
+
+  async deleteAttendance(id: string) {
+    try {
+      await Verification.verifyID(id);
+      return await DatabaseQuery.deleteAttendance(id);
+    } catch (error) {
+      return error;
+    }
+  }
+
+  async getAllAttendance() {
+    try {
+      return await DatabaseQuery.getAllAttendances();
     } catch (error) {
       return error;
     }
