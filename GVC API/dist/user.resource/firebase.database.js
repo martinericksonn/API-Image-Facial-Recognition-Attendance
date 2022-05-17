@@ -73,7 +73,7 @@ class DatabaseQuery {
             throw systemMessage.error(error);
         }
     }
-    static async setOnLeave(id, key, status) {
+    static async setOnLeave(id, status) {
         try {
             var db = admin.firestore();
             var flag;
@@ -83,8 +83,26 @@ class DatabaseQuery {
                 flag = false;
             else
                 throw systemMessage.error('invalid Boolean');
-            await db.collection(accounts).doc(id).update({ key: flag });
-            return systemMessage.success(`${id} updated ${key} to ${flag}`);
+            await db.collection(accounts).doc(id).update({ onLeave: flag });
+            return systemMessage.success(`${id} onLeave to ${flag}`);
+        }
+        catch (error) {
+            console.log(error);
+            return error;
+        }
+    }
+    static async setOnResigned(id, status) {
+        try {
+            var db = admin.firestore();
+            var flag;
+            if (status.toLowerCase() == 'true')
+                flag = true;
+            else if (status.toLowerCase() == 'false')
+                flag = false;
+            else
+                throw systemMessage.error('invalid Boolean');
+            await db.collection(accounts).doc(id).update({ resigned: flag });
+            return systemMessage.success(`${id} resigned to ${flag}`);
         }
         catch (error) {
             console.log(error);
