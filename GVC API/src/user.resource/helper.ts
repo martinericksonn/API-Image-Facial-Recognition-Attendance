@@ -50,11 +50,11 @@ export class Helper {
     return array;
   }
 
-  //
+  ///
   static validAttendanceBody(body: any) {
     var systemMessage = new SystemMessage();
 
-    var keys: Array<string> = Helper.describeClassUser2();
+    var keys: Array<string> = Helper.describeClassAttendance();
     var types: Map<string, string> = new Map<string, string>();
 
     types.set('name', typeof '');
@@ -79,7 +79,7 @@ export class Helper {
     }
   }
 
-  static describeClassUser2(): Array<any> {
+  static describeClassAttendance(): Array<any> {
     let a = new Attendance('', 123, '', '', '','');
     let array = Object.getOwnPropertyNames(a);
 
