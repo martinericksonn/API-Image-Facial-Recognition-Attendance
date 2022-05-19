@@ -1,1 +1,1 @@
-# GVG Project API
+# GVC Project API
