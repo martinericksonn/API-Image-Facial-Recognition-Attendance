@@ -101,7 +101,7 @@ export class UserService {
 
   async deleteAttendance(id: string) {
     try {
-      await Verification.verifyID(id);
+      await Verification.verifyemployeeID(id);
       return await DatabaseQuery.deleteAttendance(id);
     } catch (error) {
       return error;
