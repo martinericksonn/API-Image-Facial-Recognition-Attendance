@@ -4,7 +4,7 @@ exports.DatabaseQuery = void 0;
 require("firebase/auth");
 require("firebase/firestore");
 const account_model_1 = require("../model/account.model");
-const attendance_model_2 = require("../model/attendance.model");
+const attendance_model_1 = require("../model/attendance.model");
 const system_message_model_1 = require("../model/system_message.model");
 const admin = require('firebase-admin');
 const systemMessage = new system_message_model_1.SystemMessage();
@@ -126,24 +126,21 @@ class DatabaseQuery {
             throw systemMessage.error(error);
         }
     }
-
-    //
-    static async commitAttendance(attendance) {
+    static async commitAttendance(attendances) {
         try {
             var db = admin.firestore();
             await db
                 .collection(attendance)
-                .doc(attendance.id.toString())
-                .set(attendance.toJson());
+                .doc(attendances.id.toString())
+                .set(attendances.toJson());
             console.log('not error');
-            return systemMessage.success(attendance.toJson());
+            return systemMessage.success(attendances.toJson());
         }
         catch (error) {
             console.log(error);
             return systemMessage.error(error);
         }
     }
-
     static async getAttendance(id) {
         try {
             var db = admin.firestore();
@@ -157,25 +154,17 @@ class DatabaseQuery {
             return error;
         }
     }
-
-    static async getAllAttendance() {
+    static async hasID2(id) {
         try {
             var db = admin.firestore();
-            var userRef = await db.collection(attendance).get();
-            var populatedData = [];
-            userRef.forEach((doc) => {
-                var data = doc.data();
-                var user = new attendance_model_2.Attendance(data.name, data.id, data.date, data.time, data.classcode, data.department);
-                populatedData.push(user.toJson());
-            });
-            return systemMessage.success(populatedData);
+            const userRef = db.collection(attendance).doc(id);
+            var doc = await userRef.get();
+            return !doc.exists;
         }
         catch (error) {
-            console.log(error);
             throw systemMessage.error(error);
         }
     }
-
     static async deleteAttendance(id) {
         try {
             var db = admin.firestore();
@@ -185,6 +174,35 @@ class DatabaseQuery {
         catch (error) {
             console.log(error);
             return systemMessage.error(error);
+        }
+    }
+    static async updateAttendance(id, attendances) {
+        try {
+            var db = admin.firestore();
+            await db.collection(attendance).doc(id).update(attendances);
+            var newUser = await db.collection(attendance).doc(id).get();
+            return systemMessage.success(newUser.data());
+        }
+        catch (error) {
+            console.log(error);
+            throw systemMessage.error(error);
+        }
+    }
+    static async getAllAttendances() {
+        try {
+            var db = admin.firestore();
+            var userRef = await db.collection(attendance).get();
+            var populatedData = [];
+            userRef.forEach((doc) => {
+                var data = doc.data();
+                var user = new attendance_model_1.Attendance(data.name, data.id, data.date, data.time, data.classcode, data.department);
+                populatedData.push(user.toJson());
+            });
+            return systemMessage.success(populatedData);
+        }
+        catch (error) {
+            console.log(error);
+            throw systemMessage.error(error);
         }
     }
 }

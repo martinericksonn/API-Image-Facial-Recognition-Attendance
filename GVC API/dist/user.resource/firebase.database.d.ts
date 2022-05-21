@@ -1,6 +1,6 @@
 import 'firebase/auth';
 import 'firebase/firestore';
-import { Account } from 'src/model/account.model';
+import { Account } from '../model/account.model';
 import { Attendance } from '../model/attendance.model';
 import { CRUDReturn } from './crud_return.interface';
 export declare class DatabaseQuery {
@@ -12,11 +12,10 @@ export declare class DatabaseQuery {
     static setOnLeave(id: string, status: String): Promise<any>;
     static setOnResigned(id: string, status: String): Promise<any>;
     static getAllAccounts(): Promise<any>;
-
-    //
-    static commitAttendance(account: Attendance): Promise<CRUDReturn>;
+    static commitAttendance(attendances: Attendance): Promise<CRUDReturn>;
     static getAttendance(id: string): Promise<any>;
+    static hasID2(id: string): Promise<boolean | any>;
     static deleteAttendance(id: string): Promise<CRUDReturn>;
-    static updateAttendance(id: string, account: Attendance): Promise<any>;
-    static getAllAttendance(): Promise<any>;
+    static updateAttendance(id: string, attendances: Attendance): Promise<any>;
+    static getAllAttendances(): Promise<any>;
 }

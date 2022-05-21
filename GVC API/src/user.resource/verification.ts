@@ -1,5 +1,5 @@
 import { ConsoleLogger } from '@nestjs/common';
-import { SystemMessage } from 'src/model/system_message.model';
+import { SystemMessage } from '../model/system_message.model';
 import { DatabaseQuery } from './firebase.database';
 
 export class Verification {

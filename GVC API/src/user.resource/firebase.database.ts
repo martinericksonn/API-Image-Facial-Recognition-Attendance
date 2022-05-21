@@ -1,9 +1,8 @@
-import { user } from 'firebase-functions/v1/auth';
 import 'firebase/auth';
 import 'firebase/firestore';
-import { Attendance } from 'src/model/attendance.model';
-import { Account } from 'src/model/account.model';
-import { SystemMessage } from 'src/model/system_message.model';
+import { Account } from '../model/account.model';
+import { Attendance } from '../model/attendance.model';
+import { SystemMessage } from '../model/system_message.model';
 import { CRUDReturn } from './crud_return.interface';
 
 const admin = require('firebase-admin');

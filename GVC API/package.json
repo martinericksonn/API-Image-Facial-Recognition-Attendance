@@ -1,11 +1,13 @@
 {
-    "name": "chat-api",
+    "name": "gvc-api",
     "version": "0.0.1",
-    "description": "",
+    "description": "<p align=\"center\">   <a href=\"http://nestjs.com/\" target=\"blank\"><img src=\"https://nestjs.com/img/logo_text.svg\" width=\"320\" alt=\"Nest Logo\" /></a> </p>",
     "author": "",
     "private": true,
     "license": "UNLICENSED",
     "scripts": {
+        "build": "tsc",
+        "build:watch": "tsc --watch",
         "prenest:build": "rimraf dist",
         "start": "npm-run-all --parallel nest:start:dev fb:serve",
         "deploy": "npm-run-all nest:build fb:deploy",
@@ -36,7 +38,7 @@
         "express": "^4.17.1",
         "firebase": "^9.6.1",
         "firebase-admin": "^9.12.0",
-        "firebase-functions": "^3.21.1",
+        "firebase-functions": "^3.21.2",
         "nestjs-firebase": "^8.2.3",
         "reflect-metadata": "^0.1.13",
         "rimraf": "^3.0.2",
@@ -89,5 +91,10 @@
     "main": "dist/main.js",
     "engines": {
         "node": "10"
-    }
+    },
+    "types": "./dist/main.d.ts",
+    "directories": {
+        "test": "test"
+    },
+    "keywords": []
 }

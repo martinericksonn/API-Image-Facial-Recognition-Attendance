@@ -1,11 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import * as admin from 'firebase-admin';
-import { auth } from 'firebase-admin';
-import { Helper } from 'src/user.resource/helper';
-import { Account } from 'src/model/account.model';
-import { DatabaseQuery } from 'src/user.resource/firebase.database';
-import { Verification } from 'src/user.resource/verification';
-import { Attendance } from 'src/model/attendance.model';
+import { Account } from '../model/account.model';
+import { Attendance } from '../model/attendance.model';
+import { DatabaseQuery } from '../user.resource/firebase.database';
+import { Helper } from '../user.resource/helper';
+import { Verification } from '../user.resource/verification';
 
 @Injectable()
 export class UserService {

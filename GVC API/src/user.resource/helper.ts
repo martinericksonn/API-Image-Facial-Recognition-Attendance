@@ -1,11 +1,6 @@
-// import { User, SystemMessage } from './user.model';
-import { v4 as uid } from 'uuid';
-// import { DatabaseQuery } from './firebase.database';
-// import { Message } from 'src/chat.resource/chat.interface';
-import { SystemMessage } from 'src/model/system_message.model';
-import { Account } from 'src/model/account.model';
-import { Attendance } from 'src/model/attendance.model';
-// import { SystemMessage, User } from '../model/account.model';
+import { SystemMessage } from '../model/system_message.model';
+import { Account } from '../model/account.model';
+import { Attendance } from '../model/attendance.model';
 
 export class Helper {
   private static systemMessage = new SystemMessage();
@@ -80,7 +75,7 @@ export class Helper {
   }
 
   static describeClassAttendance(): Array<any> {
-    let a = new Attendance('', 123, '', '', '','');
+    let a = new Attendance('', 123, '', '', '', '');
     let array = Object.getOwnPropertyNames(a);
 
     return array;
