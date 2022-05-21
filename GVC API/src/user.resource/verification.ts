@@ -10,4 +10,10 @@ export class Verification {
       throw this.systemMessage.error(506);
     }
   }
+
+  static async verifyemployeeID(id: string) {
+    if (await DatabaseQuery.hasID2(id)) {
+      throw this.systemMessage.error(506);
+    }
+  }
 }
