@@ -9,6 +9,11 @@ class Verification {
             throw this.systemMessage.error(506);
         }
     }
+    static async verifyemployeeID(id) {
+        if (await firebase_database_1.DatabaseQuery.hasID2(id)) {
+            throw this.systemMessage.error(506);
+        }
+    }
 }
 exports.Verification = Verification;
 Verification.systemMessage = new system_message_model_1.SystemMessage();

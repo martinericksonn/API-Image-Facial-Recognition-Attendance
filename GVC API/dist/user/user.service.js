@@ -89,7 +89,7 @@ let UserService = class UserService {
     }
     async deleteAttendance(id) {
         try {
-            await verification_1.Verification.verifyID(id);
+            await verification_1.Verification.verifyemployeeID(id);
             return await firebase_database_1.DatabaseQuery.deleteAttendance(id);
         }
         catch (error) {
