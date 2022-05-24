@@ -33,7 +33,7 @@ class DatabaseQuery {
             if (!userRef.exists) {
                 throw systemMessage.error(506);
             }
-            return userRef.data();
+            return systemMessage.success(userRef.data());
         }
         catch (error) {
             return error;
@@ -148,7 +148,7 @@ class DatabaseQuery {
             if (!userRef.exists) {
                 throw systemMessage.error(506);
             }
-            return userRef.data();
+            return systemMessage.success(userRef.data());
         }
         catch (error) {
             return error;

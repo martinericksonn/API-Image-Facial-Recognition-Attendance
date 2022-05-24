@@ -34,7 +34,7 @@ export class DatabaseQuery {
         throw systemMessage.error(506);
       }
 
-      return userRef.data();
+      return systemMessage.success(userRef.data());
     } catch (error) {
       return error;
     }
@@ -162,7 +162,7 @@ export class DatabaseQuery {
         throw systemMessage.error(506);
       }
 
-      return userRef.data();
+      return systemMessage.success(userRef.data());
     } catch (error) {
       return error;
     }
