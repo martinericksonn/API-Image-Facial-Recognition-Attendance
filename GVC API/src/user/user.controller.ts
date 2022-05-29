@@ -52,9 +52,9 @@ export class UserController {
     return this.userService.getAttendance(id);
   }
 
-  @Get('/getAllAttendance')
-  getAllAttendance() {
-    return this.userService.getAllAttendance();
+  @Get('/getAllAttendances')
+  getAllAttendances() {
+    return this.userService.getAllAttendances();
   }
 
   @Post('/addAttendance')

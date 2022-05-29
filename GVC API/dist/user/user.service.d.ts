@@ -8,5 +8,5 @@ export declare class UserService {
     addAttendance(body: any): Promise<any>;
     getAttendance(id: string): Promise<any>;
     deleteAttendance(id: string): Promise<any>;
-    getAllAttendance(): Promise<any>;
+    getAllAttendances(): Promise<any>;
 }
