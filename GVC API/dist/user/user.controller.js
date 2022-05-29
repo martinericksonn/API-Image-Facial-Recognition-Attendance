@@ -40,8 +40,8 @@ let UserController = class UserController {
     getAttendance(id) {
         return this.userService.getAttendance(id);
     }
-    getAllAttendance() {
-        return this.userService.getAllAttendance();
+    getAllAttendances() {
+        return this.userService.getAllAttendances();
     }
     addAttendance(body) {
         return this.userService.addAttendance(body);
@@ -101,11 +101,11 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], UserController.prototype, "getAttendance", null);
 __decorate([
-    (0, common_1.Get)('/getAllAttendance'),
+    (0, common_1.Get)('/getAllAttendances'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
-], UserController.prototype, "getAllAttendance", null);
+], UserController.prototype, "getAllAttendances", null);
 __decorate([
     (0, common_1.Post)('/addAttendance'),
     __param(0, (0, common_1.Body)()),

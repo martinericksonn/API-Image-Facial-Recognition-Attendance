@@ -3,8 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.DatabaseQuery = void 0;
 require("firebase/auth");
 require("firebase/firestore");
-const account_model_1 = require("../model/account.model");
 const attendance_model_1 = require("../model/attendance.model");
+const account_model_1 = require("../model/account.model");
 const system_message_model_1 = require("../model/system_message.model");
 const admin = require('firebase-admin');
 const systemMessage = new system_message_model_1.SystemMessage();
@@ -33,7 +33,7 @@ class DatabaseQuery {
             if (!userRef.exists) {
                 throw systemMessage.error(506);
             }
-            return systemMessage.success(userRef.data());
+            return userRef.data();
         }
         catch (error) {
             return error;
@@ -148,7 +148,7 @@ class DatabaseQuery {
             if (!userRef.exists) {
                 throw systemMessage.error(506);
             }
-            return systemMessage.success(userRef.data());
+            return userRef.data();
         }
         catch (error) {
             return error;
@@ -195,7 +195,7 @@ class DatabaseQuery {
             var populatedData = [];
             userRef.forEach((doc) => {
                 var data = doc.data();
-                var user = new attendance_model_1.Attendance(data.name, data.id, data.date, data.time, data.classcode, data.department);
+                var user = new attendance_model_1.Attendance(data.name, data.employeeId, data.date, data.time, data.classCode, data.department);
                 populatedData.push(user.toJson());
             });
             return systemMessage.success(populatedData);

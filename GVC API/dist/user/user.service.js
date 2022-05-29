@@ -8,11 +8,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserService = void 0;
 const common_1 = require("@nestjs/common");
-const account_model_1 = require("../model/account.model");
-const attendance_model_1 = require("../model/attendance.model");
-const firebase_database_1 = require("../user.resource/firebase.database");
 const helper_1 = require("../user.resource/helper");
+const account_model_1 = require("../model/account.model");
+const firebase_database_1 = require("../user.resource/firebase.database");
 const verification_1 = require("../user.resource/verification");
+const attendance_model_1 = require("../model/attendance.model");
 let UserService = class UserService {
     async addAccount(body) {
         try {
@@ -96,7 +96,7 @@ let UserService = class UserService {
             return error;
         }
     }
-    async getAllAttendance() {
+    async getAllAttendances() {
         try {
             return await firebase_database_1.DatabaseQuery.getAllAttendances();
         }

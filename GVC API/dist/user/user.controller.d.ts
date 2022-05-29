@@ -9,7 +9,7 @@ export declare class UserController {
     setResigned(id: string, status: any): Promise<any>;
     deleteAccount(id: string): Promise<any>;
     getAttendance(id: string): Promise<any>;
-    getAllAttendance(): Promise<any>;
+    getAllAttendances(): Promise<any>;
     addAttendance(body: any): Promise<any>;
     deleteAttendance(id: string): Promise<any>;
 }
