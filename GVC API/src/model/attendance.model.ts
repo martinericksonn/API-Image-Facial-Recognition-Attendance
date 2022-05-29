@@ -1,6 +1,3 @@
-import 'firebase/auth';
-import 'firebase/firestore';
-
 export class Attendance {
   constructor(
     private name: string,
@@ -11,18 +8,20 @@ export class Attendance {
     private department: string,
   ) {}
 
-  log(){
-    console.log(`${this.name} ${this.id} ${this.date} ${this.time} ${this.classcode} ${this.department}`);
-}
+  log() {
+    console.log(
+      `${this.name} ${this.id} ${this.date} ${this.time} ${this.classcode} ${this.department}`,
+    );
+  }
 
-toJson(){
+  toJson() {
     return {
-        name:this.name,
-        employeeId:this.id,
-        date:this.date,
-        time:this.time,
-        classCode:this.classcode,
-        department:this.department
+      name: this.name,
+      employeeId: this.id,
+      date: this.date,
+      time: this.time,
+      classCode: this.classcode,
+      department: this.department,
     };
-}
+  }
 }

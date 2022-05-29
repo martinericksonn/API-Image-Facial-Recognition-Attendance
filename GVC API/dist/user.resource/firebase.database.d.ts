@@ -1,8 +1,8 @@
 import 'firebase/auth';
 import 'firebase/firestore';
+import { CRUDReturn } from 'src/model/crud_return.interface';
 import { Account } from '../model/account.model';
 import { Attendance } from '../model/attendance.model';
-import { CRUDReturn } from './crud_return.interface';
 export declare class DatabaseQuery {
     static commit(account: Account): Promise<CRUDReturn>;
     static getUser(id: string): Promise<any>;

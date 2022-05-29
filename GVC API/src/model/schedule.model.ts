@@ -1,20 +1,38 @@
-export class Attendance {
-  constructor(
-    private offer_no,
-    private subj_no,
-    private subj_name,
-    private sch_days,
-    private sch_time,
-    private sy,
-    private term,
-    private dept_cod,
-  ) {}
+export class Schedule {
+  private offer_no;
+  private subj_no;
+  private subj_name;
+  private sch_days;
+  private sch_time;
+  private sy;
+  private term;
+  private dept_code;
+  //   constructor(
+  //     private offer_no,
+  //     private subj_no,
+  //     private subj_name,
+  //     private sch_days,
+  //     private sch_time,
+  //     private sy,
+  //     private term,
+  //     private dept_cod,
+  //   ) {}
+  constructor(body: any) {
+    this.offer_no = body['offer_no'];
+    this.subj_no = body['subj_no'];
+    this.subj_name = body['subj_name'];
+    this.sch_days = body['sch_days'];
+    this.sch_time = body['sch_time'];
+    this.sy = body['sy'];
+    this.term = body['term'];
+    this.dept_code = body['dept_code'];
+  }
 
   log() {
     console.log(
       `${this.offer_no} ${this.subj_no} ${this.subj_no}
        ${this.subj_name} ${this.sch_days} ${this.sch_time} 
-       ${this.sy} ${this.term} ${this.dept_cod}`,
+       ${this.sy} ${this.term} ${this.dept_code}`,
     );
   }
 
@@ -27,7 +45,7 @@ export class Attendance {
       sch_time: this.sch_time,
       sy: this.sy,
       term: this.term,
-      dept_cod: this.dept_cod,
+      dept_cod: this.dept_code,
     };
   }
 }

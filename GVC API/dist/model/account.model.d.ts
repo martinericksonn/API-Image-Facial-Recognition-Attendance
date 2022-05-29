@@ -1,5 +1,3 @@
-import 'firebase/auth';
-import 'firebase/firestore';
 export declare class Account {
     private name;
     id: number;

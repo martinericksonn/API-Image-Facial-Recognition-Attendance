@@ -19,6 +19,9 @@ let UserController = class UserController {
     constructor(userService) {
         this.userService = userService;
     }
+    getHello() {
+        return this.userService.getAllAccounts();
+    }
     getAccount(id) {
         return this.userService.getAccount(id);
     }
@@ -50,6 +53,12 @@ let UserController = class UserController {
         return this.userService.deleteAttendance(id);
     }
 };
+__decorate([
+    (0, common_1.Get)(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], UserController.prototype, "getHello", null);
 __decorate([
     (0, common_1.Get)('/getAccount/:id'),
     __param(0, (0, common_1.Param)('id')),

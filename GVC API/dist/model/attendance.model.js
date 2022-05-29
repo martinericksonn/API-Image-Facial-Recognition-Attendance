@@ -1,8 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Attendance = void 0;
-require("firebase/auth");
-require("firebase/firestore");
 class Attendance {
     constructor(name, id, date, time, classcode, department) {
         this.name = name;
@@ -22,7 +20,7 @@ class Attendance {
             date: this.date,
             time: this.time,
             classCode: this.classcode,
-            department: this.department
+            department: this.department,
         };
     }
 }

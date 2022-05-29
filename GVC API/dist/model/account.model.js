@@ -1,8 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Account = void 0;
-require("firebase/auth");
-require("firebase/firestore");
 class Account {
     constructor(name, id, department, collegeName, onLeave, resigned) {
         this.name = name;

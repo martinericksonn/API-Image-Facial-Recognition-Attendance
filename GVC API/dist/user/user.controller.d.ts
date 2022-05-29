@@ -2,6 +2,7 @@ import { UserService } from './user.service';
 export declare class UserController {
     private readonly userService;
     constructor(userService: UserService);
+    getHello(): Promise<any>;
     getAccount(id: string): Promise<any>;
     getAllAccount(): Promise<any>;
     addAccount(body: any): Promise<any>;

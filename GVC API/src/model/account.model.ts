@@ -1,6 +1,3 @@
-import 'firebase/auth';
-import 'firebase/firestore';
-
 export class Account {
   constructor(
     private name: string,

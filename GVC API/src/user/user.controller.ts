@@ -15,6 +15,10 @@ export class UserController {
   //@get
   //attendance
   //accounts
+  @Get()
+  getHello() {
+    return this.userService.getAllAccounts();
+  }
 
   @Get('/getAccount/:id')
   getAccount(@Param('id') id: string) {
@@ -66,5 +70,4 @@ export class UserController {
   deleteAttendance(@Param('id') id: string) {
     return this.userService.deleteAttendance(id);
   }
- 
 }
