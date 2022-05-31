@@ -23,4 +23,23 @@ export class DatabaseQuery {
       return systemMessage.error(error);
     }
   }
+
+  static async getAllSchedule(): Promise<CRUDReturn> {
+    try {
+      var db = admin.firestore();
+      var schedRef = await db.collection('subjects').get();
+      var populatedData = [];
+
+      schedRef.forEach((doc) => {
+        var data = doc.data();
+
+        var sched = new Schedule(data);
+        populatedData.push(sched);
+      });
+
+      return systemMessage.success(populatedData);
+    } catch (error) {
+      return systemMessage.error(error);
+    }
+  }
 }

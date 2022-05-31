@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { UserService } from './user.service';
 
-@Controller('user')
+@Controller('accounts')
 export class UserController {
   constructor(private readonly userService: UserService) {}
   //@get
@@ -20,17 +20,17 @@ export class UserController {
     return this.userService.getAllAccounts();
   }
 
-  @Get('/getAccount/:id')
-  getAccount(@Param('id') id: string) {
-    return this.userService.getAccount(id);
-  }
-
-  @Get('/getAllAccounts')
+  @Get('/get/all')
   getAllAccount() {
     return this.userService.getAllAccounts();
   }
 
-  @Post('/addAccount')
+  @Get('/get/:id')
+  getAccount(@Param('id') id: string) {
+    return this.userService.getAccount(id);
+  }
+
+  @Post('/add')
   addAccount(@Body() body: any) {
     return this.userService.addAccount(body);
   }
@@ -45,7 +45,7 @@ export class UserController {
     return this.userService.setResigned(id, status);
   }
 
-  @Delete('/deleteAccount/:id')
+  @Delete('/delete/:id')
   deleteAccount(@Param('id') id: string) {
     return this.userService.deleteAccount(id);
   }

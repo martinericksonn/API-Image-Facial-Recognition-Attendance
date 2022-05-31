@@ -23,6 +23,22 @@ class DatabaseQuery {
             return systemMessage.error(error);
         }
     }
+    static async getAllSchedule() {
+        try {
+            var db = admin.firestore();
+            var schedRef = await db.collection('subjects').get();
+            var populatedData = [];
+            schedRef.forEach((doc) => {
+                var data = doc.data();
+                var sched = new schedule_model_1.Schedule(data);
+                populatedData.push(sched);
+            });
+            return systemMessage.success(populatedData);
+        }
+        catch (error) {
+            return systemMessage.error(error);
+        }
+    }
 }
 exports.DatabaseQuery = DatabaseQuery;
 //# sourceMappingURL=firebase.database.js.map

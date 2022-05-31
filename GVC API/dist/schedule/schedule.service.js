@@ -18,14 +18,21 @@ let ScheduleService = class ScheduleService {
     scheduleWorking() {
         return 'Hello Schedule!';
     }
-    async addSchedule(bods) {
+    async addSchedule(body) {
         try {
-            for (const value of Object.values(bods['result'])) {
-                console.log();
+            for (const value of Object.values(body['result'])) {
                 var newSchedule = new schedule_model_1.Schedule(value);
                 await firebase_database_1.DatabaseQuery.commitScedule(newSchedule);
             }
             return this.systemMessage.success('schedule added to database');
+        }
+        catch (error) {
+            return this.systemMessage.error(error.message);
+        }
+    }
+    async getSchedule() {
+        try {
+            return await firebase_database_1.DatabaseQuery.getAllSchedule();
         }
         catch (error) {
             return this.systemMessage.error(error.message);

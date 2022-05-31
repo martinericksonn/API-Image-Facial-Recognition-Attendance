@@ -21,7 +21,7 @@ export class Attendance {
       date: this.date,
       time: this.time,
       classCode: this.classcode,
-      department: this.department,
+      department: this.department, //not sure if necessary
     };
   }
 }

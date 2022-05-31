@@ -22,11 +22,11 @@ let UserController = class UserController {
     getHello() {
         return this.userService.getAllAccounts();
     }
-    getAccount(id) {
-        return this.userService.getAccount(id);
-    }
     getAllAccount() {
         return this.userService.getAllAccounts();
+    }
+    getAccount(id) {
+        return this.userService.getAccount(id);
     }
     addAccount(body) {
         return this.userService.addAccount(body);
@@ -60,20 +60,20 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], UserController.prototype, "getHello", null);
 __decorate([
-    (0, common_1.Get)('/getAccount/:id'),
+    (0, common_1.Get)('/get/all'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], UserController.prototype, "getAllAccount", null);
+__decorate([
+    (0, common_1.Get)('/get/:id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], UserController.prototype, "getAccount", null);
 __decorate([
-    (0, common_1.Get)('/getAllAccounts'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], UserController.prototype, "getAllAccount", null);
-__decorate([
-    (0, common_1.Post)('/addAccount'),
+    (0, common_1.Post)('/add'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -96,7 +96,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], UserController.prototype, "setResigned", null);
 __decorate([
-    (0, common_1.Delete)('/deleteAccount/:id'),
+    (0, common_1.Delete)('/delete/:id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
@@ -130,7 +130,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], UserController.prototype, "deleteAttendance", null);
 UserController = __decorate([
-    (0, common_1.Controller)('user'),
+    (0, common_1.Controller)('accounts'),
     __metadata("design:paramtypes", [user_service_1.UserService])
 ], UserController);
 exports.UserController = UserController;

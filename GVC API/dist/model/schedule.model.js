@@ -26,7 +26,7 @@ class Schedule {
             sch_time: this.sch_time,
             sy: this.sy,
             term: this.term,
-            dept_cod: this.dept_code,
+            dept_code: this.dept_code,
         };
     }
 }

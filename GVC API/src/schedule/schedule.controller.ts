@@ -9,9 +9,9 @@ export class ScheduleController {
   getHello(): string {
     return this.scheduleService.scheduleWorking();
   }
-  @Get('/getAccount')
+  @Get('/get/all')
   getAccount() {
-    return this.scheduleService.scheduleWorking();
+    return this.scheduleService.getSchedule();
   }
 
   @Post('/add')

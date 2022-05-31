@@ -17,6 +17,6 @@ export declare class Schedule {
         sch_time: any;
         sy: any;
         term: any;
-        dept_cod: any;
+        dept_code: any;
     };
 }
