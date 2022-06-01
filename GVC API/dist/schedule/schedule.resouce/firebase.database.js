@@ -39,6 +39,19 @@ class DatabaseQuery {
             return systemMessage.error(error);
         }
     }
+    static async getSchedule(id) {
+        try {
+            var db = admin.firestore();
+            var schedRef = await db.collection('subjects').doc(id).get();
+            if (!schedRef.exists) {
+                throw systemMessage.error(506);
+            }
+            return systemMessage.success(schedRef.data());
+        }
+        catch (error) {
+            return error;
+        }
+    }
 }
 exports.DatabaseQuery = DatabaseQuery;
 //# sourceMappingURL=firebase.database.js.map

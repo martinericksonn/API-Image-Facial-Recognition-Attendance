@@ -1,6 +1,6 @@
 import 'firebase/auth';
 import 'firebase/firestore';
-import { Schedule } from 'src/model/schedule.model';
+import { Schedule } from '../../model/schedule.model';
 import { CRUDReturn } from '../../model/crud_return.interface';
 import { SystemMessage } from '../../model/system_message.model';
 
@@ -40,6 +40,20 @@ export class DatabaseQuery {
       return systemMessage.success(populatedData);
     } catch (error) {
       return systemMessage.error(error);
+    }
+  }
+
+  static async getSchedule(id: string): Promise<CRUDReturn> {
+    try {
+      var db = admin.firestore();
+      var schedRef = await db.collection('subjects').doc(id).get();
+      if (!schedRef.exists) {
+        throw systemMessage.error(506);
+      }
+
+      return systemMessage.success(schedRef.data());
+    } catch (error) {
+      return error;
     }
   }
 }

@@ -9,8 +9,4 @@ export declare class UserController {
     setOnLeave(id: string, status: any): Promise<any>;
     setResigned(id: string, status: any): Promise<any>;
     deleteAccount(id: string): Promise<any>;
-    getAttendance(id: string): Promise<any>;
-    getAllAttendances(): Promise<any>;
-    addAttendance(body: any): Promise<any>;
-    deleteAttendance(id: string): Promise<any>;
 }

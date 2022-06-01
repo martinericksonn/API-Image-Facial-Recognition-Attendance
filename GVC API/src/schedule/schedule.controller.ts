@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 import { ScheduleService } from './schedule.service';
 
 @Controller('schedule')
@@ -10,8 +10,13 @@ export class ScheduleController {
     return this.scheduleService.scheduleWorking();
   }
   @Get('/get/all')
-  getAccount() {
-    return this.scheduleService.getSchedule();
+  setAllSchedule() {
+    return this.scheduleService.getAllSchedule();
+  }
+
+  @Get('/get/:id')
+  setSchedule(@Param('id') id: string) {
+    return this.scheduleService.getSchedule(id);
   }
 
   @Post('/add')

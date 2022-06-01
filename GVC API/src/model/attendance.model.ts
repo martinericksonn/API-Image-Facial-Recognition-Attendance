@@ -6,7 +6,8 @@ export class Attendance {
     public time: string,
     private classcode: string,
     private department: string,
-  ) {}
+  ) // private remarks: string // new
+  {}
 
   log() {
     console.log(

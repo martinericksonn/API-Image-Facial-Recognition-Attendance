@@ -49,25 +49,4 @@ export class UserController {
   deleteAccount(@Param('id') id: string) {
     return this.userService.deleteAccount(id);
   }
-
-  //@post attendance
-  @Get('/getAttendance/:id')
-  getAttendance(@Param('id') id: string) {
-    return this.userService.getAttendance(id);
-  }
-
-  @Get('/getAllAttendances')
-  getAllAttendances() {
-    return this.userService.getAllAttendances();
-  }
-
-  @Post('/addAttendance')
-  addAttendance(@Body() body: any) {
-    return this.userService.addAttendance(body);
-  }
-
-  @Delete('/deleteAttendance/:id')
-  deleteAttendance(@Param('id') id: string) {
-    return this.userService.deleteAttendance(id);
-  }
 }

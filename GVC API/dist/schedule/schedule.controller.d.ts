@@ -3,6 +3,7 @@ export declare class ScheduleController {
     private readonly scheduleService;
     constructor(scheduleService: ScheduleService);
     getHello(): string;
-    getAccount(): Promise<any>;
+    setAllSchedule(): Promise<any>;
+    setSchedule(id: string): Promise<any>;
     addSchedule(body: any): Promise<any>;
 }

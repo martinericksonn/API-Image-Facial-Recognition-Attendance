@@ -23,11 +23,19 @@ export class ScheduleService {
     }
   }
 
-  async getSchedule() {
+  async getAllSchedule() {
     try {
       return await DatabaseQuery.getAllSchedule();
     } catch (error) {
       return this.systemMessage.error(error.message);
+    }
+  }
+
+  async getSchedule(id: string) {
+    try {
+      return await DatabaseQuery.getSchedule(id);
+    } catch (error) {
+      return error;
     }
   }
 }

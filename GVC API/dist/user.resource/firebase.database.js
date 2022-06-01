@@ -3,7 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.DatabaseQuery = void 0;
 require("firebase/auth");
 require("firebase/firestore");
-const crud_return_interface_1 = require("../model/crud_return.interface");
 const account_model_1 = require("../model/account.model");
 const attendance_model_1 = require("../model/attendance.model");
 const system_message_model_1 = require("../model/system_message.model");

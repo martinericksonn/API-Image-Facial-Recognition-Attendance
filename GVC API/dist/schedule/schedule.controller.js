@@ -22,8 +22,11 @@ let ScheduleController = class ScheduleController {
     getHello() {
         return this.scheduleService.scheduleWorking();
     }
-    getAccount() {
-        return this.scheduleService.getSchedule();
+    setAllSchedule() {
+        return this.scheduleService.getAllSchedule();
+    }
+    setSchedule(id) {
+        return this.scheduleService.getSchedule(id);
     }
     addSchedule(body) {
         return this.scheduleService.addSchedule(body);
@@ -40,7 +43,14 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
-], ScheduleController.prototype, "getAccount", null);
+], ScheduleController.prototype, "setAllSchedule", null);
+__decorate([
+    (0, common_1.Get)('/get/:id'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], ScheduleController.prototype, "setSchedule", null);
 __decorate([
     (0, common_1.Post)('/add'),
     __param(0, (0, common_1.Body)()),

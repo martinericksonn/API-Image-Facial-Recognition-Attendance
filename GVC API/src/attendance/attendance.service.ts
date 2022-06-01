@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { Attendance } from 'src/model/attendance.model';
-import { DatabaseQuery } from 'src/user.resource/firebase.database';
-import { Helper } from 'src/user.resource/helper';
-import { Verification } from 'src/user.resource/verification';
+import { Attendance } from '../model/attendance.model';
+import { DatabaseQuery } from '../user.resource/firebase.database';
+import { Helper } from '../user.resource/helper';
+import { Verification } from '../user.resource/verification';
 
 @Injectable()
 export class AttendanceService {

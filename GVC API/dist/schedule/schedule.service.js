@@ -30,12 +30,20 @@ let ScheduleService = class ScheduleService {
             return this.systemMessage.error(error.message);
         }
     }
-    async getSchedule() {
+    async getAllSchedule() {
         try {
             return await firebase_database_1.DatabaseQuery.getAllSchedule();
         }
         catch (error) {
             return this.systemMessage.error(error.message);
+        }
+    }
+    async getSchedule(id) {
+        try {
+            return await firebase_database_1.DatabaseQuery.getSchedule(id);
+        }
+        catch (error) {
+            return error;
         }
     }
 };
