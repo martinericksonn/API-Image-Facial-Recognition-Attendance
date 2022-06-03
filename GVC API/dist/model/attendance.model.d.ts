@@ -4,8 +4,10 @@ export declare class Attendance {
     private date;
     time: string;
     private classcode;
-    private department;
-    constructor(name: string, id: number, date: string, time: string, classcode: string, department: string);
+    private departmert;
+    private remark;
+
+    constructor(name: string, id: number, date: string, time: string, classcode: string, department: string, remark: string);
     log(): void;
     toJson(): {
         name: string;
@@ -14,5 +16,6 @@ export declare class Attendance {
         time: string;
         classCode: string;
         department: string;
+        remark:string
     };
 }

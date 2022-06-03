@@ -48,6 +48,8 @@ class Helper {
         types.set('time', typeof '');
         types.set('classcode', typeof '');
         types.set('department', typeof '');
+        types.set('remark', typeof '');
+
         for (const key of Object.keys(body)) {
             if (!keys.includes(`${key}`) && typeof body[key] != types.get(key)) {
                 throw systemMessage.error(502);
@@ -63,7 +65,7 @@ class Helper {
         }
     }
     static describeClassAttendance() {
-        let a = new attendance_model_1.Attendance('', 123, '', '', '', '');
+        let a = new attendance_model_1.Attendance('', 123, '', '', '', '','');
         let array = Object.getOwnPropertyNames(a);
         return array;
     }

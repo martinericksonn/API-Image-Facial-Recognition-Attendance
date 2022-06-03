@@ -195,7 +195,7 @@ class DatabaseQuery {
             var populatedData = [];
             userRef.forEach((doc) => {
                 var data = doc.data();
-                var user = new attendance_model_1.Attendance(data.name, data.id, data.date, data.time, data.classcode, data.department);
+                var user = new attendance_model_1.Attendance(data.name, data.employeeId, data.date, data.time, data.classCode, data.department, data.remark);
                 populatedData.push(user.toJson());
             });
             return systemMessage.success(populatedData);

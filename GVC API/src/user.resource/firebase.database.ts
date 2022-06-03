@@ -217,11 +217,12 @@ export class DatabaseQuery {
 
         var user = new Attendance(
           data.name,
-          data.id,
+          data.employeeId,
           data.date,
           data.time,
-          data.classcode,
+          data.classCode,
           data.department,
+          data.remark,
         );
         populatedData.push(user.toJson());
       });

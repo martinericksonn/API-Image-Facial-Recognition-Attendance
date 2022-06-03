@@ -67,6 +67,42 @@ let UserService = class UserService {
             return error;
         }
     }
+    async addAttendance(body) {
+        try {
+            body.id = helper_1.Helper.generateID();
+            helper_1.Helper.validAttendanceBody(body);
+            var newAccount = new attendance_model_1.Attendance(body.name, body.id, body.date, body.time, body.classcode, body.department, body.remark);
+            return await firebase_database_1.DatabaseQuery.commitAttendance(newAccount);
+        }
+        catch (error) {
+            return error;
+        }
+    }
+    async getAttendance(id) {
+        try {
+            return await firebase_database_1.DatabaseQuery.getAttendance(id);
+        }
+        catch (error) {
+            return error;
+        }
+    }
+    async deleteAttendance(id) {
+        try {
+            await verification_1.Verification.verifyemployeeID(id);
+            return await firebase_database_1.DatabaseQuery.deleteAttendance(id);
+        }
+        catch (error) {
+            return error;
+        }
+    }
+    async getAllAttendances() {
+        try {
+            return await firebase_database_1.DatabaseQuery.getAllAttendances();
+        }
+        catch (error) {
+            return error;
+        }
+    }
 };
 UserService = __decorate([
     (0, common_1.Injectable)()
