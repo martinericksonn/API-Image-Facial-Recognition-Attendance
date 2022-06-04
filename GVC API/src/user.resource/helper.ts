@@ -47,24 +47,25 @@ export class Helper {
 
   ///
   static validAttendanceBody(body: any) {
+    console.log(body);
     var systemMessage = new SystemMessage();
 
     var keys: Array<string> = Helper.describeClassAttendance();
     var types: Map<string, string> = new Map<string, string>();
 
+    types.set('attendanceID', typeof 0);
     types.set('name', typeof '');
-    types.set('id', typeof 0);
+    types.set('employeeID', typeof 0);
     types.set('date', typeof '');
     types.set('time', typeof '');
-    types.set('classcode', typeof '');
+    types.set('classcode', typeof 0);
     types.set('department', typeof '');
-    types.set('remark', typeof '');
-
+    types.set('remarks', typeof '');
 
     for (const key of Object.keys(body)) {
-      if (!keys.includes(`${key}`) && typeof body[key] != types.get(key)) {
-        throw systemMessage.error(502);
-      }
+      // if (!keys.includes(`${key}`) && typeof body[key] != types.get(key)) {
+      //   throw systemMessage.error(502);
+      // }
       if (typeof body[key] != types.get(key)) {
         console.log(body[key]);
         console.log(types.get(key));
@@ -77,7 +78,7 @@ export class Helper {
   }
 
   static describeClassAttendance(): Array<any> {
-    let a = new Attendance('', 123, '', '', '', '','');
+    let a = new Attendance(123, '', 123, '', '', 123, '', '');
     let array = Object.getOwnPropertyNames(a);
 
     return array;

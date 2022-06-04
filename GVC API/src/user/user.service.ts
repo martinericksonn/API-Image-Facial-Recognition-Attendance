@@ -37,7 +37,7 @@ export class UserService {
 
   async deleteAccount(id: string) {
     try {
-      await Verification.verifyID(id);
+      await Verification.verifyAccountID(id);
       return await DatabaseQuery.deleteAccount(id);
     } catch (error) {
       return error;
@@ -46,7 +46,7 @@ export class UserService {
 
   async setOnLeave(id: string, status: any) {
     try {
-      await Verification.verifyID(id);
+      await Verification.verifyAccountID(id);
       return await DatabaseQuery.setOnLeave(id, status);
     } catch (error) {
       return error;
@@ -54,7 +54,7 @@ export class UserService {
   }
   async setResigned(id: string, status: any) {
     try {
-      await Verification.verifyID(id);
+      await Verification.verifyAccountID(id);
       return await DatabaseQuery.setOnResigned(id, status);
     } catch (error) {
       return error;
@@ -63,53 +63,6 @@ export class UserService {
   async getAllAccounts() {
     try {
       return await DatabaseQuery.getAllAccounts();
-    } catch (error) {
-      return error;
-    }
-  }
-
-  //
-  async addAttendance(body: any) {
-    try {
-      body.id = Helper.generateID();
-      Helper.validAttendanceBody(body);
-
-      var newAccount: Attendance = new Attendance(
-        body.name,
-        body.id,
-        body.date,
-        body.time,
-        body.classcode,
-        body.department,
-        body.remark,
-      );
-
-      return await DatabaseQuery.commitAttendance(newAccount);
-    } catch (error) {
-      return error;
-    }
-  }
-
-  async getAttendance(id: string) {
-    try {
-      return await DatabaseQuery.getAttendance(id);
-    } catch (error) {
-      return error;
-    }
-  }
-
-  async deleteAttendance(id: string) {
-    try {
-      await Verification.verifyemployeeID(id);
-      return await DatabaseQuery.deleteAttendance(id);
-    } catch (error) {
-      return error;
-    }
-  }
-
-  async getAllAttendances() {
-    try {
-      return await DatabaseQuery.getAllAttendances();
     } catch (error) {
       return error;
     }

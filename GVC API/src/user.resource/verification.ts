@@ -5,13 +5,13 @@ import { DatabaseQuery } from './firebase.database';
 export class Verification {
   private static systemMessage = new SystemMessage();
 
-  static async verifyID(id: string) {
+  static async verifyAccountID(id: string) {
     if (await DatabaseQuery.hasID(id)) {
       throw this.systemMessage.error(506);
     }
   }
 
-  static async verifyemployeeID(id: string) {
+  static async verifyAttendanceID(id: string) {
     if (await DatabaseQuery.hasID2(id)) {
       throw this.systemMessage.error(506);
     }

@@ -8,17 +8,35 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AttendanceService = void 0;
 const common_1 = require("@nestjs/common");
+const system_message_model_1 = require("../model/system_message.model");
+const user_service_1 = require("../user/user.service");
 const attendance_model_1 = require("../model/attendance.model");
 const firebase_database_1 = require("../user.resource/firebase.database");
 const helper_1 = require("../user.resource/helper");
 const verification_1 = require("../user.resource/verification");
 let AttendanceService = class AttendanceService {
+    constructor() {
+        this.userService = new user_service_1.UserService();
+        this.systemMessage = new system_message_model_1.SystemMessage();
+    }
     async addAttendance(body) {
         try {
-            body.id = helper_1.Helper.generateID();
-            helper_1.Helper.validAttendanceBody(body);
-            var newAccount = new attendance_model_1.Attendance(body.name, body.id, body.date, body.time, body.classcode, body.department);
-            return await firebase_database_1.DatabaseQuery.commitAttendance(newAccount);
+            return await this.userService
+                .getAccount(body.employeeID.toString())
+                .then(async (value) => {
+                if (value.success) {
+                    var genID = '1' + helper_1.Helper.generateID();
+                    body.attendanceID = parseInt(genID);
+                    body.name = value.data['name'];
+                    body.department = value.data['department'];
+                    helper_1.Helper.validAttendanceBody(body);
+                    var newAttendance = new attendance_model_1.Attendance(body.attendanceID, body.name, body.employeeID, body.date, body.time, body.classcode, body.department, body.remarks);
+                    return await firebase_database_1.DatabaseQuery.commitAttendance(newAttendance);
+                }
+                else {
+                    throw this.systemMessage.error('employeeID not found');
+                }
+            });
         }
         catch (error) {
             return error;
@@ -34,7 +52,7 @@ let AttendanceService = class AttendanceService {
     }
     async deleteAttendance(id) {
         try {
-            await verification_1.Verification.verifyemployeeID(id);
+            await verification_1.Verification.verifyAttendanceID(id);
             return await firebase_database_1.DatabaseQuery.deleteAttendance(id);
         }
         catch (error) {

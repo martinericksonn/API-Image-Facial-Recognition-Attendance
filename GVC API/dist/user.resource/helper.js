@@ -39,21 +39,19 @@ class Helper {
         return array;
     }
     static validAttendanceBody(body) {
+        console.log(body);
         var systemMessage = new system_message_model_1.SystemMessage();
         var keys = Helper.describeClassAttendance();
         var types = new Map();
+        types.set('attendanceID', typeof 0);
         types.set('name', typeof '');
-        types.set('id', typeof 0);
+        types.set('employeeID', typeof 0);
         types.set('date', typeof '');
         types.set('time', typeof '');
-        types.set('classcode', typeof '');
+        types.set('classcode', typeof 0);
         types.set('department', typeof '');
-        types.set('remark', typeof '');
-
+        types.set('remarks', typeof '');
         for (const key of Object.keys(body)) {
-            if (!keys.includes(`${key}`) && typeof body[key] != types.get(key)) {
-                throw systemMessage.error(502);
-            }
             if (typeof body[key] != types.get(key)) {
                 console.log(body[key]);
                 console.log(types.get(key));
@@ -65,7 +63,7 @@ class Helper {
         }
     }
     static describeClassAttendance() {
-        let a = new attendance_model_1.Attendance('', 123, '', '', '', '','');
+        let a = new attendance_model_1.Attendance(123, '', 123, '', '', 123, '', '');
         let array = Object.getOwnPropertyNames(a);
         return array;
     }

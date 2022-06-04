@@ -1,21 +1,22 @@
 export declare class Attendance {
+    attendanceID: number;
     private name;
-    id: number;
+    private employeeID;
     private date;
     time: string;
     private classcode;
-    private departmert;
-    private remark;
-
-    constructor(name: string, id: number, date: string, time: string, classcode: string, department: string, remark: string);
+    private department;
+    private remarks;
+    constructor(attendanceID: number, name: string, employeeID: number, date: string, time: string, classcode: number, department: string, remarks: string);
     log(): void;
     toJson(): {
+        attendanceID: number;
         name: string;
-        employeeId: number;
+        employeeID: number;
         date: string;
         time: string;
-        classCode: string;
+        classcode: number;
         department: string;
-        remark:string
+        remarks: string;
     };
 }

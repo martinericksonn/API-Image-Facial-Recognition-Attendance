@@ -144,7 +144,7 @@ export class DatabaseQuery {
       var db = admin.firestore();
       await db
         .collection(attendance)
-        .doc(attendances.id.toString())
+        .doc(attendances.attendanceID.toString())
         .set(attendances.toJson());
       console.log('not error');
       return systemMessage.success(attendances.toJson());
@@ -185,7 +185,7 @@ export class DatabaseQuery {
       var db = admin.firestore();
       await db.collection(attendance).doc(id).delete();
 
-      return systemMessage.success(103);
+      return systemMessage.success(id + ' account deleted');
     } catch (error) {
       console.log(error);
       return systemMessage.error(error);
@@ -216,8 +216,9 @@ export class DatabaseQuery {
         var data = doc.data();
 
         var user = new Attendance(
+          data.attendanceID,
           data.name,
-          data.employeeId,
+          data.employeeID,
           data.date,
           data.time,
           data.classCode,

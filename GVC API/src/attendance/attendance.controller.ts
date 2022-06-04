@@ -5,6 +5,10 @@ import { AttendanceService } from './attendance.service';
 export class AttendanceController {
   constructor(private readonly attendanceService: AttendanceService) {}
 
+  @Delete('/delete/:id')
+  deleteAttendance(@Param('id') id: string) {
+    return this.attendanceService.deleteAttendance(id);
+  }
   @Get('/get/all')
   getAllAttendances() {
     return this.attendanceService.getAllAttendances();
@@ -18,10 +22,5 @@ export class AttendanceController {
   @Post('/add')
   addAttendance(@Body() body: any) {
     return this.attendanceService.addAttendance(body);
-  }
-
-  @Delete('/delete/:id')
-  deleteAttendance(@Param('id') id: string) {
-    return this.attendanceService.deleteAttendance(id);
   }
 }

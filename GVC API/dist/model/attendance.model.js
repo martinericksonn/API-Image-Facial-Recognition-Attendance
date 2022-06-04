@@ -2,28 +2,29 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Attendance = void 0;
 class Attendance {
-    constructor(name, id, date, time, classcode, department, remark) {
+    constructor(attendanceID, name, employeeID, date, time, classcode, department, remarks) {
+        this.attendanceID = attendanceID;
         this.name = name;
-        this.id = id;
+        this.employeeID = employeeID;
         this.date = date;
         this.time = time;
         this.classcode = classcode;
         this.department = department;
-        this.remark = remark;
+        this.remarks = remarks;
     }
     log() {
-        console.log(`${this.name} ${this.id} ${this.date} ${this.time} ${this.classcode} ${this.department} ${this.remark}`);
+        console.log(`${this.name} ${this.employeeID} ${this.date} ${this.time} ${this.classcode} ${this.department} ${this.remarks}`);
     }
     toJson() {
         return {
+            attendanceID: this.attendanceID,
             name: this.name,
-            employeeId: this.id,
+            employeeID: this.employeeID,
             date: this.date,
             time: this.time,
-            classCode: this.classode,
+            classcode: this.classcode,
             department: this.department,
-            remark: this.remark
-
+            remarks: this.remarks,
         };
     }
 }

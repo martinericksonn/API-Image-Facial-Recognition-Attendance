@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.DatabaseQuery = void 0;
 require("firebase/auth");
 require("firebase/firestore");
+const crud_return_interface_1 = require("../model/crud_return.interface");
 const account_model_1 = require("../model/account.model");
 const attendance_model_1 = require("../model/attendance.model");
 const system_message_model_1 = require("../model/system_message.model");
@@ -131,7 +132,7 @@ class DatabaseQuery {
             var db = admin.firestore();
             await db
                 .collection(attendance)
-                .doc(attendances.id.toString())
+                .doc(attendances.attendanceID.toString())
                 .set(attendances.toJson());
             console.log('not error');
             return systemMessage.success(attendances.toJson());
@@ -169,7 +170,7 @@ class DatabaseQuery {
         try {
             var db = admin.firestore();
             await db.collection(attendance).doc(id).delete();
-            return systemMessage.success(103);
+            return systemMessage.success(id + ' account deleted');
         }
         catch (error) {
             console.log(error);
@@ -195,7 +196,7 @@ class DatabaseQuery {
             var populatedData = [];
             userRef.forEach((doc) => {
                 var data = doc.data();
-                var user = new attendance_model_1.Attendance(data.name, data.employeeId, data.date, data.time, data.classCode, data.department, data.remark);
+                var user = new attendance_model_1.Attendance(data.attendanceID, data.name, data.employeeID, data.date, data.time, data.classCode, data.department, data.remark);
                 populatedData.push(user.toJson());
             });
             return systemMessage.success(populatedData);
