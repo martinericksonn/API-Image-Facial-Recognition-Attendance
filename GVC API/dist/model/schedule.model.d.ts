@@ -6,17 +6,17 @@ export declare class Schedule {
     private sch_time;
     private sy;
     private term;
-    private dept_code;
+    private fac_id;
     constructor(body: any);
     log(): void;
     toJson(): {
         offer_no: any;
         subj_no: any;
         subj_name: any;
-        sch_day: any;
+        sch_days: any;
         sch_time: any;
         sy: any;
         term: any;
-        dept_code: any;
+        fac_id: any;
     };
 }

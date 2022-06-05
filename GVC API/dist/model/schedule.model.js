@@ -10,23 +10,23 @@ class Schedule {
         this.sch_time = body['sch_time'];
         this.sy = body['sy'];
         this.term = body['term'];
-        this.dept_code = body['dept_code'];
+        this.fac_id = body['fac_id'];
     }
     log() {
         console.log(`${this.offer_no} ${this.subj_no} ${this.subj_no}
        ${this.subj_name} ${this.sch_days} ${this.sch_time} 
-       ${this.sy} ${this.term} ${this.dept_code}`);
+       ${this.sy} ${this.term} ${this.fac_id}`);
     }
     toJson() {
         return {
             offer_no: this.offer_no,
             subj_no: this.subj_no,
             subj_name: this.subj_name,
-            sch_day: this.sch_days,
+            sch_days: this.sch_days,
             sch_time: this.sch_time,
             sy: this.sy,
             term: this.term,
-            dept_code: this.dept_code,
+            fac_id: this.fac_id,
         };
     }
 }

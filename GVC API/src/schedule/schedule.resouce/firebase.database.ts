@@ -16,8 +16,8 @@ export class DatabaseQuery {
         .doc(subject['offer_no'])
         .set(subject.toJson());
 
-      console.log(subject.toJson());
-      return systemMessage.success(subject.toJson());
+      // console.log(subject.toJson());
+      return systemMessage.success('schedule successfully added to database');
     } catch (error) {
       console.log(error);
       return systemMessage.error(error);

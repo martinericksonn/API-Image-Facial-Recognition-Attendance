@@ -15,8 +15,7 @@ class DatabaseQuery {
                 .collection('subjects')
                 .doc(subject['offer_no'])
                 .set(subject.toJson());
-            console.log(subject.toJson());
-            return systemMessage.success(subject.toJson());
+            return systemMessage.success('schedule successfully added to database');
         }
         catch (error) {
             console.log(error);
