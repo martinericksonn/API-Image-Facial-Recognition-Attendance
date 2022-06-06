@@ -50,6 +50,14 @@ let AttendanceService = class AttendanceService {
             return error;
         }
     }
+    async getAttendanceOfAccount(id) {
+        try {
+            return await firebase_database_1.DatabaseQuery.getAttendanceOfAccount(id);
+        }
+        catch (error) {
+            return error;
+        }
+    }
     async deleteAttendance(id) {
         try {
             await verification_1.Verification.verifyAttendanceID(id);

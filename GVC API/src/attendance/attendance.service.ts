@@ -54,6 +54,13 @@ export class AttendanceService {
       return error;
     }
   }
+  async getAttendanceOfAccount(id: string) {
+    try {
+      return await DatabaseQuery.getAttendanceOfAccount(id);
+    } catch (error) {
+      return error;
+    }
+  }
 
   async deleteAttendance(id: string) {
     try {

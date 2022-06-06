@@ -1,3 +1,4 @@
+import { equal } from 'assert';
 import 'firebase/auth';
 import 'firebase/firestore';
 import { CRUDReturn } from 'src/model/crud_return.interface';
@@ -165,6 +166,27 @@ export class DatabaseQuery {
       return systemMessage.success(userRef.data());
     } catch (error) {
       return error;
+    }
+  }
+  static async getAttendanceOfAccount(id: string) {
+    try {
+      console.log(id);
+      var db = admin.firestore();
+      var userRef = await db
+        .collection(attendance)
+        .where('employeeID', '==', parseInt(id));
+
+      const querySnapshot = await userRef.get();
+
+      const results = [];
+      querySnapshot.forEach(function (doc) {
+        results.push(doc.data());
+      });
+
+      return systemMessage.success(results);
+    } catch (error) {
+      console.log(error);
+      throw systemMessage.error(error);
     }
   }
 

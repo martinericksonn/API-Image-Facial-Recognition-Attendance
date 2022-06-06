@@ -6,4 +6,5 @@ export declare class AttendanceController {
     getAllAttendances(): Promise<any>;
     getAttendance(id: string): Promise<any>;
     addAttendance(body: any): Promise<any>;
+    getAttendanceOfAccount(id: string): Promise<any>;
 }

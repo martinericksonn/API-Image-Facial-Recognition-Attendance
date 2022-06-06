@@ -23,4 +23,8 @@ export class AttendanceController {
   addAttendance(@Body() body: any) {
     return this.attendanceService.addAttendance(body);
   }
+  @Get('/get/accountOf/:id')
+  getAttendanceOfAccount(@Param('id') id: string) {
+    return this.attendanceService.getAttendanceOfAccount(id);
+  }
 }

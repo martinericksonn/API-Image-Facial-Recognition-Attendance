@@ -14,6 +14,7 @@ export declare class DatabaseQuery {
     static getAllAccounts(): Promise<any>;
     static commitAttendance(attendances: Attendance): Promise<CRUDReturn>;
     static getAttendance(id: string): Promise<any>;
+    static getAttendanceOfAccount(id: string): Promise<any>;
     static hasID2(id: string): Promise<boolean | any>;
     static deleteAttendance(id: string): Promise<CRUDReturn>;
     static updateAttendance(id: string, attendances: Attendance): Promise<any>;

@@ -155,6 +155,25 @@ class DatabaseQuery {
             return error;
         }
     }
+    static async getAttendanceOfAccount(id) {
+        try {
+            console.log(id);
+            var db = admin.firestore();
+            var userRef = await db
+                .collection(attendance)
+                .where('employeeID', '==', parseInt(id));
+            const querySnapshot = await userRef.get();
+            const results = [];
+            querySnapshot.forEach(function (doc) {
+                results.push(doc.data());
+            });
+            return systemMessage.success(results);
+        }
+        catch (error) {
+            console.log(error);
+            throw systemMessage.error(error);
+        }
+    }
     static async hasID2(id) {
         try {
             var db = admin.firestore();
