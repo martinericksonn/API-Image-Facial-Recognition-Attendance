@@ -16,9 +16,10 @@ const attendance_model_1 = require("../model/attendance.model");
 let UserService = class UserService {
     async addAccount(body) {
         try {
-            body.id = helper_1.Helper.generateID();
+            body.id = helper_1.Helper.genID();
+            body.password = helper_1.Helper.genPassword();
             helper_1.Helper.validAccountBody(body);
-            var newAccount = new account_model_1.Account(body.name, body.id, body.department, body.collegeName, body.onLeave, body.resigned);
+            var newAccount = new account_model_1.Account(body.name, body.id, body.department, body.collegeName, body.onLeave, body.resigned, body.password);
             return await firebase_database_1.DatabaseQuery.commit(newAccount);
         }
         catch (error) {

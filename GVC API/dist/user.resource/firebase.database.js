@@ -3,7 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.DatabaseQuery = void 0;
 require("firebase/auth");
 require("firebase/firestore");
-const crud_return_interface_1 = require("../model/crud_return.interface");
 const account_model_1 = require("../model/account.model");
 const attendance_model_1 = require("../model/attendance.model");
 const system_message_model_1 = require("../model/system_message.model");
@@ -117,7 +116,7 @@ class DatabaseQuery {
             var populatedData = [];
             userRef.forEach((doc) => {
                 var data = doc.data();
-                var user = new account_model_1.Account(data.name, data.id, data.department, data.collegeName, data.onLeave, data.resigned);
+                var user = new account_model_1.Account(data.name, data.id, data.department, data.collegeName, data.onLeave, data.resigned, data.password);
                 populatedData.push(user.toJson());
             });
             return systemMessage.success(populatedData);
@@ -152,6 +151,31 @@ class DatabaseQuery {
             return systemMessage.success(userRef.data());
         }
         catch (error) {
+            return error;
+        }
+    }
+    static async login(id, password) {
+        try {
+            var isValid = false;
+            var db = admin.firestore();
+            console.log(id);
+            var userRef = await db
+                .collection('accounts')
+                .where('id', '==', parseInt(id))
+                .where('password', '==', password);
+            const querySnapshot = await userRef.get();
+            await querySnapshot.forEach(function (doc) {
+                isValid = true;
+            });
+            if (await isValid) {
+                return await systemMessage.success('login success');
+            }
+            else {
+                return await systemMessage.error('ID or password is incorrect');
+            }
+        }
+        catch (error) {
+            console.log(error);
             return error;
         }
     }

@@ -7,16 +7,7 @@ export class Schedule {
   private sy;
   private term;
   private fac_id;
-  //   constructor(
-  //     private offer_no,
-  //     private subj_no,
-  //     private subj_name,
-  //     private sch_days,
-  //     private sch_time,
-  //     private sy,
-  //     private term,
-  //     private dept_cod,
-  //   ) {}
+
   constructor(body: any) {
     this.offer_no = body['offer_no'];
     this.subj_no = body['subj_no'];

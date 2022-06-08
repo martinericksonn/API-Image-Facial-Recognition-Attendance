@@ -7,10 +7,12 @@ import { AppController } from '../app.controller';
 import { AppService } from '../app.service';
 
 import { UserModule } from '../user/user.module';
+import { AuthModule } from 'src/auth/auth.module';
+import { AuthService } from 'src/auth/auth.service';
 
 @Module({
-  imports: [UserModule, ScheduleModule, AttendanceModule],
+  imports: [UserModule, ScheduleModule, AttendanceModule, AuthModule],
   controllers: [AppController],
-  providers: [AppService, ScheduleService, AttendanceService],
+  providers: [AppService, ScheduleService, AttendanceService, AuthService],
 })
 export class AppModule {}

@@ -5,7 +5,7 @@ import { Attendance } from '../model/attendance.model';
 export class Helper {
   private static systemMessage = new SystemMessage();
 
-  static generateID(): number {
+  static genID(): number {
     var datum = Date.parse(new Date().toString());
     return datum / 1000;
   }
@@ -22,6 +22,7 @@ export class Helper {
     types.set('collegeName', typeof '');
     types.set('onLeave', typeof true);
     types.set('resigned', typeof true);
+    types.set('password', typeof '');
 
     for (const key of Object.keys(body)) {
       if (!keys.includes(`${key}`) && typeof body[key] != types.get(key)) {
@@ -37,9 +38,20 @@ export class Helper {
       }
     }
   }
+  static genPassword() {
+    var chars =
+      '0123456789abcdefghijklmnopqrstuvwxyz!@#$%^&*()ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    var passwordLength = 8;
+    var password = '';
+    for (var i = 0; i <= passwordLength; i++) {
+      var randomNumber = Math.floor(Math.random() * chars.length);
+      password += chars.substring(randomNumber, randomNumber + 1);
+    }
 
+    return password;
+  }
   static describeClassUser(): Array<any> {
-    let a = new Account('', 123, '', '', false, false);
+    let a = new Account('', 123, '', '', false, false, '');
     let array = Object.getOwnPropertyNames(a);
 
     return array;

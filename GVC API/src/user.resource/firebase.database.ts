@@ -1,10 +1,11 @@
-import { equal } from 'assert';
+import { equal, strictEqual } from 'assert';
 import 'firebase/auth';
 import 'firebase/firestore';
-import { CRUDReturn } from 'src/model/crud_return.interface';
+import { CRUDReturn } from '../model/crud_return.interface';
 import { Account } from '../model/account.model';
 import { Attendance } from '../model/attendance.model';
 import { SystemMessage } from '../model/system_message.model';
+import { ConsoleLogger } from '@nestjs/common';
 
 const admin = require('firebase-admin');
 const systemMessage = new SystemMessage();
@@ -129,6 +130,7 @@ export class DatabaseQuery {
           data.collegeName,
           data.onLeave,
           data.resigned,
+          data.password,
         );
         populatedData.push(user.toJson());
       });
@@ -165,6 +167,34 @@ export class DatabaseQuery {
 
       return systemMessage.success(userRef.data());
     } catch (error) {
+      return error;
+    }
+  }
+
+  static async login(id: string, password: string) {
+    try {
+      var isValid = false;
+      var db = admin.firestore();
+      console.log(id);
+
+      var userRef = await db
+        .collection('accounts')
+        .where('id', '==', parseInt(id))
+        .where('password', '==', password);
+
+      const querySnapshot = await userRef.get();
+
+      await querySnapshot.forEach(function (doc): any {
+        isValid = true;
+      });
+
+      if (await isValid) {
+        return await systemMessage.success('login success');
+      } else {
+        return await systemMessage.error('ID or password is incorrect');
+      }
+    } catch (error) {
+      console.log(error);
       return error;
     }
   }

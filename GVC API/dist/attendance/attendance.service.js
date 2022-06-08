@@ -25,7 +25,7 @@ let AttendanceService = class AttendanceService {
                 .getAccount(body.employeeID.toString())
                 .then(async (value) => {
                 if (value.success) {
-                    var genID = '1' + helper_1.Helper.generateID();
+                    var genID = '1' + helper_1.Helper.genID();
                     body.attendanceID = parseInt(genID);
                     body.name = value.data['name'];
                     body.department = value.data['department'];

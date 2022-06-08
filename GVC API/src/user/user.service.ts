@@ -9,7 +9,8 @@ import { Attendance } from 'src/model/attendance.model';
 export class UserService {
   async addAccount(body: any) {
     try {
-      body.id = Helper.generateID();
+      body.id = Helper.genID();
+      body.password = Helper.genPassword();
       Helper.validAccountBody(body);
 
       var newAccount: Account = new Account(
@@ -19,6 +20,7 @@ export class UserService {
         body.collegeName,
         body.onLeave,
         body.resigned,
+        body.password,
       );
 
       return await DatabaseQuery.commit(newAccount);

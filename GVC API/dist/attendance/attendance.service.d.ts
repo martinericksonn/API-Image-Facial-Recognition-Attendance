@@ -1,5 +1,5 @@
-import { SystemMessage } from 'src/model/system_message.model';
-import { UserService } from 'src/user/user.service';
+import { SystemMessage } from '../model/system_message.model';
+import { UserService } from '../user/user.service';
 export declare class AttendanceService {
     userService: UserService;
     systemMessage: SystemMessage;

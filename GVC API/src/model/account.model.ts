@@ -6,6 +6,7 @@ export class Account {
     public collegeName: string,
     private onLeave: boolean,
     private resigned: boolean,
+    private password: string,
   ) {}
 
   log() {
@@ -22,6 +23,7 @@ export class Account {
       collegeName: this.collegeName,
       onLeave: this.onLeave,
       resigned: this.resigned,
+      password: this.password,
     };
   }
 }

@@ -5,7 +5,8 @@ export declare class Account {
     collegeName: string;
     private onLeave;
     private resigned;
-    constructor(name: string, id: number, department: string, collegeName: string, onLeave: boolean, resigned: boolean);
+    private password;
+    constructor(name: string, id: number, department: string, collegeName: string, onLeave: boolean, resigned: boolean, password: string);
     log(): void;
     toJson(): {
         name: string;
@@ -14,5 +15,6 @@ export declare class Account {
         collegeName: string;
         onLeave: boolean;
         resigned: boolean;
+        password: string;
     };
 }

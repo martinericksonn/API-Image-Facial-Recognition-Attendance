@@ -15,13 +15,15 @@ const schedule_service_1 = require("../schedule/schedule.service");
 const app_controller_1 = require("../app.controller");
 const app_service_1 = require("../app.service");
 const user_module_1 = require("../user/user.module");
+const auth_module_1 = require("../auth/auth.module");
+const auth_service_1 = require("../auth/auth.service");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [user_module_1.UserModule, schedule_module_1.ScheduleModule, attendance_module_1.AttendanceModule],
+        imports: [user_module_1.UserModule, schedule_module_1.ScheduleModule, attendance_module_1.AttendanceModule, auth_module_1.AuthModule],
         controllers: [app_controller_1.AppController],
-        providers: [app_service_1.AppService, schedule_service_1.ScheduleService, attendance_service_1.AttendanceService],
+        providers: [app_service_1.AppService, schedule_service_1.ScheduleService, attendance_service_1.AttendanceService, auth_service_1.AuthService],
     })
 ], AppModule);
 exports.AppModule = AppModule;

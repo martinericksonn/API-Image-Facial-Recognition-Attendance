@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { SystemMessage } from 'src/model/system_message.model';
-import { UserService } from 'src/user/user.service';
+import { SystemMessage } from '../model/system_message.model';
+import { UserService } from '../user/user.service';
 import { Attendance } from '../model/attendance.model';
 import { DatabaseQuery } from '../user.resource/firebase.database';
 import { Helper } from '../user.resource/helper';
@@ -17,7 +17,7 @@ export class AttendanceService {
         .getAccount(body.employeeID.toString())
         .then(async (value: any) => {
           if (value.success) {
-            var genID = '1' + Helper.generateID();
+            var genID = '1' + Helper.genID();
             body.attendanceID = parseInt(genID);
             body.name = value.data['name'];
             body.department = value.data['department'];
