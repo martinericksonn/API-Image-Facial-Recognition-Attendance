@@ -12,7 +12,6 @@ const helper_1 = require("../user.resource/helper");
 const account_model_1 = require("../model/account.model");
 const firebase_database_1 = require("../user.resource/firebase.database");
 const verification_1 = require("../user.resource/verification");
-const attendance_model_1 = require("../model/attendance.model");
 let UserService = class UserService {
     async addAccount(body) {
         try {

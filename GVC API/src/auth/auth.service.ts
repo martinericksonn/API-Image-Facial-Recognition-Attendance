@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { DatabaseQuery } from 'src/user.resource/firebase.database';
+import { DatabaseQuery } from '../user.resource/firebase.database';
 
 @Injectable()
 export class AuthService {

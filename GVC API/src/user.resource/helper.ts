@@ -40,7 +40,7 @@ export class Helper {
   }
   static genPassword() {
     var chars =
-      '0123456789abcdefghijklmnopqrstuvwxyz!@#$%^&*()ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     var passwordLength = 8;
     var password = '';
     for (var i = 0; i <= passwordLength; i++) {

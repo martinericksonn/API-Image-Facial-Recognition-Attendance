@@ -7,8 +7,8 @@ import { AppController } from '../app.controller';
 import { AppService } from '../app.service';
 
 import { UserModule } from '../user/user.module';
-import { AuthModule } from 'src/auth/auth.module';
-import { AuthService } from 'src/auth/auth.service';
+import { AuthModule } from '../auth/auth.module';
+import { AuthService } from '../auth/auth.service';
 
 @Module({
   imports: [UserModule, ScheduleModule, AttendanceModule, AuthModule],
